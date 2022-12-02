@@ -13,3 +13,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+    QString path_file;
+    path_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
+
+}
+
