@@ -1,16 +1,16 @@
 #include "scene.h"
 
 
-Scene::Scene(QWidget *parent):
+Scene::Scene(QOpenGLWidget *parent):
     QOpenGLWidget (parent)
 {
 }
 
-void initializeGL() {
+void Scene::initializeGL() {
 
 }
 
-void paintGL() {
+void Scene::paintGL() {
     glClear(GL_COLOR_BUFFER_BIT);
     QMatrix4x4 matrix;
     matrix.ortho(-2.0f, 2.0f, -2.0f, 2.0f, 2.0f, -2.0f);
@@ -29,6 +29,6 @@ void paintGL() {
     };
 
 }
-void resizGL( int w, int h) {
+void Scene::resizGL( int w, int h) {
     glViewport(0, 0, w, h);
 }

@@ -3,10 +3,6 @@
 
 #include <QMainWindow>
 
-
-#include <QtOpenGL>
-//#include <QGLWidget>
-
 #include <QFileDialog>
 
 

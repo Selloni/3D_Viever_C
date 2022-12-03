@@ -11,7 +11,7 @@
 class Scene: public QOpenGLWidget
 {
 public:
-    Scene(QWidget *parent);
+    Scene(QOpenGLWidget *parent);
 
     void initializeGL();  // вызываеться после вызова конструктора
     void paintGL();  // нужно перерасовть окно

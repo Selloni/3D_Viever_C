@@ -23,6 +23,9 @@
       <height>431</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(217, 215, 219);</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
@@ -241,19 +244,6 @@
      <string>color</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="vertex_circle">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>300</y>
-      <width>61</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>circle</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
@@ -339,6 +329,19 @@
     </property>
     <property name="text">
      <string>MOVE</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="vertex_circle">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>300</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>circle</string>
     </property>
    </widget>
   </widget>
