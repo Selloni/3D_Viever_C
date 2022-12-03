@@ -1,14 +1,14 @@
 #include "s21_viewer.h"
 
-int main() {
-    data_t obj;
-    // FILE* f = fopen("/Users/myrebean/C8_3DViewer_v1.0-0/src/test.obj", "r");
-    // s21_count_v(f, &obj);
-    s21_count_v_f("/Users/myrebean/C8_3DViewer_v1.0-0/src/cub.obj", &obj);
-    s21_read("/Users/myrebean/C8_3DViewer_v1.0-0/src/cub.obj", &obj);
-    // s21_digits("/Users/myrebean/C8_3DViewer_v1.0-0/src/test.obj", &obj);
-    return 0;
-}
+//int main() {
+//    data_t obj;
+//    // FILE* f = fopen("/Users/myrebean/C8_3DViewer_v1.0-0/src/test.obj", "r");
+//    // s21_count_v(f, &obj);
+//    s21_count_v_f("/Users/myrebean/C8_3DViewer_v1.0-0/src/cub.obj", &obj);
+//    s21_read("/Users/myrebean/C8_3DViewer_v1.0-0/src/cub.obj", &obj);
+//    // s21_digits("/Users/myrebean/C8_3DViewer_v1.0-0/src/test.obj", &obj);
+//    return 0;
+//}
 
 int s21_count_v_f(char* file_name, data_t *obj) { // открыли и посчитали, сколько нам потребуется памяти
     FILE *text;
