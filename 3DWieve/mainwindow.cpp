@@ -16,8 +16,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    QString path_file;
-    path_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
-//    .........тест
+    data_t obj;
+    QString qpath_file;
+    qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
+    QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
+    char *path_file = ba.data();
+    s21_count_v_f(path_file, &obj);
+    s21_read(path_file, &obj);
 }
 
