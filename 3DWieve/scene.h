@@ -7,11 +7,10 @@
 #include <QOpenGLShaderProgram>
 #include <QMatrix4x4>
 
-
 class Scene: public QOpenGLWidget
 {
 public:
-    Scene(QOpenGLWidget *parent);
+    Scene(QWidget *parent = 0);
 
     void initializeGL();  // вызываеться после вызова конструктора
     void paintGL();  // нужно перерасовть окно
