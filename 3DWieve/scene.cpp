@@ -7,19 +7,20 @@ Scene::Scene(QWidget *parent):
 }
 
 void Scene::initializeGL() {
+    glScalef(0.5, 0.5, 0.5);  // для маштаба
+    glMatrixMode(GL_PROJECTION);  // ортоганальая поекция
+    glLoadIdentity(); // закреплаяем изменения
     glEnable(GL_DEPTH_TEST); // буфер глубины
     glClearColor( 0.0f, 0.0f, 0.f, 0.0f );  //  colo bakcground
 }
-
 
 float arr[] = {0,0,0, -1,0,-1, 0,1,0, 1,0,0}; // масив вершин
 int mass[] = {1,0, 1,2, 1,3, 2,3, 2,4, 3,4 };  // масив соединений
 
 
-
 void Scene::paintGL() {
-//    glTranslatef(0, 0, -30);
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
+
     glVertexPointer(3, GL_FLOAT, 0, &arr);  // берет каждые три точки под вершины из масива
         glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
         glColor3d(1,0,1);  //  color
@@ -28,7 +29,7 @@ void Scene::paintGL() {
         glLineStipple(1, 0x00ff);
 
         glDrawElements(GL_LINES, 12 , GL_UNSIGNED_INT, &mass); // рисуем не зависмыми линиями
-//        glScalef(2, 1, 0.3);  // для маштаба
+
         glLineWidth(6); // size line
 //        glDrawArrays(GL_LINE_LOOP,0,4);  // цельная линия
         glPointSize(16);  // size point
@@ -56,7 +57,7 @@ void Scene::resizGL( int w, int h) {
     glMatrixMode(GL_PROJECTION);  // ортоганальая поекция
     glLoadIdentity(); // загружаем матрицу
     // Establish clipping volume (left, right, bottom, top, near, far)
-    glFrustum(-100, 100, -100, 100, 10, 100);  //  перспективная проекция
+    glFrustum(-100, 100, -100, 100, 2, 100);  //  перспективная проекция
 }
 
 
