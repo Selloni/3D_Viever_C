@@ -12,6 +12,7 @@
 class Scene: public QOpenGLWidget
 {
 private slots:
+
     float xRot, yRot, zRot;
     QPoint mPos;
     void mousePressEvent(QMouseEvent*) override; // click mouse
@@ -21,9 +22,10 @@ private slots:
     void resizGL( int w, int h);  //  когда изменяеться размер окна
     void paintGL() override;  // нужно перерасовть окно
 public:
-    void line_color(int a, int b, int c);
-    Scene(QWidget *parent = 0);
 
+    Scene(QWidget *parent = 0);
+    void line_color(int l_c);
+    int a;
 
 
 };

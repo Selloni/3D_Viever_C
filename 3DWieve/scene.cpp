@@ -19,8 +19,18 @@ float arr[] = {0,0,0, -1,0,-1, 0,1,0, 1,0,0}; // масив вершин
 int mass[] = {1,0, 1,2, 1,3, 2,3, 2,4, 3,4 };  // масив соединений
 
 
-void line_color(int a, int b, int c) {
-    glColor3d(a,b,c);
+void line_color(int l_c) {
+    if (l_c == 0) {
+        glColor3d(0,0,0.2);
+    } else if (l_c == 1) {
+        glColor3d(1,1,1);
+    }else if (l_c == 2) {
+        glColor3d(0.5,0,0);
+    }else if (l_c == 3) {
+        glColor3d(1,0.7,0.3);
+    }else if (l_c == 4) {
+        glColor3d(0.1,1,0.7);
+    }
     update();
 }
 
@@ -29,7 +39,7 @@ void Scene::paintGL() {
 
     glVertexPointer(3, GL_FLOAT, 0, &arr);  // берет каждые три точки под вершины из масива
         glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
-        line_color;
+        line_color(a);
 //        glColor3d(1,0,1);  //  color
 
         glEnable(GL_LINE_STIPPLE); // пунктирная линия
@@ -46,8 +56,6 @@ void Scene::paintGL() {
     glRotatef(xRot, 1, 0, 0);// для движения мышью
     glRotatef(yRot, 0, 1, 0);
 }
-
-
 
 void MoveCamera() {  // для движения камеры
 //    glRotated(-20, 1, 0, 0);
