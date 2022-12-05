@@ -2,9 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
 #include <QFileDialog>
 
+#include "scene.h"
 
 
 extern "C" {
@@ -26,7 +26,10 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_line_color_activated(int index);
+
 private:
     Ui::MainWindow *ui;
+    Scene scene;
 };
 #endif // MAINWINDOW_H

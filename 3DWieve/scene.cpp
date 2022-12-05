@@ -1,6 +1,7 @@
 #include "scene.h"
 
 
+
 Scene::Scene(QWidget *parent):
     QOpenGLWidget (parent)
 {
@@ -18,12 +19,18 @@ float arr[] = {0,0,0, -1,0,-1, 0,1,0, 1,0,0}; // масив вершин
 int mass[] = {1,0, 1,2, 1,3, 2,3, 2,4, 3,4 };  // масив соединений
 
 
+void line_color(int a, int b, int c) {
+    glColor3d(a,b,c);
+    update();
+}
+
 void Scene::paintGL() {
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
 
     glVertexPointer(3, GL_FLOAT, 0, &arr);  // берет каждые три точки под вершины из масива
         glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
-        glColor3d(1,0,1);  //  color
+        line_color;
+//        glColor3d(1,0,1);  //  color
 
         glEnable(GL_LINE_STIPPLE); // пунктирная линия
         glLineStipple(1, 0x00ff);
@@ -33,7 +40,7 @@ void Scene::paintGL() {
         glLineWidth(6); // size line
 //        glDrawArrays(GL_LINE_LOOP,0,4);  // цельная линия
         glPointSize(16);  // size point
-
+        glEnable(GL_POINT_SMOOTH);  // круглые точки
         glDrawArrays(GL_POINTS, 0, 4);
     glDisableClientState(GL_VERTEX_ARRAY);
     glRotatef(xRot, 1, 0, 0);// для движения мышью

@@ -24,5 +24,8 @@ void MainWindow::on_pushButton_clicked()
     char *path_file = ba.data();
     s21_count_v_f(path_file, &obj);
     s21_read(path_file, &obj);
+    scene.line_color(1, 0, 1);
 }
+
+
 
