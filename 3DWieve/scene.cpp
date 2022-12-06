@@ -34,6 +34,7 @@ void line_color(int l_c) {
 }
 
 void line_style( int l_s) {
+    glLineStipple(1, 0x00ff);
     if (l_s == 0) {
         glEnable(GL_LINE);
     } else {
@@ -41,23 +42,61 @@ void line_style( int l_s) {
     }
 }
 
+void line_width(int l_w) {
+    glLineWidth(l_w); // size line
+}
+
+
+void vertex_color(int w_c) {
+
+    if (w_c == 0) {
+        glColor3d(0,0,0.2);
+    } else if (w_c == 1) {
+        glColor3d(1,1,1);
+    }else if (w_c == 2) {
+        glColor3d(0.5,0,0);
+    }else if (w_c == 3) {
+        glColor3d(0.1,1,0.7);
+    }else if (w_c == 4) {
+        glColor3d(0.1,0,1);
+    }
+
+}
+
+void veretex_stile(int v_s) {
+    if (v_s == 0) {
+        glEnable(GL_NONE);
+    } else if (v_s == 1) {
+        glEnable(GL_POINT_SMOOTH);  // круглые точки
+    } else {
+        glEnable(GL_POINT);  // круглые точки
+    }
+}
+
 void Scene::paintGL() {
+    glClearColor( 0.2f, 0.0f, 0.0f, 0.0f );
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
     glVertexPointer(3, GL_FLOAT, 0, &arr);  // берет каждые три точки под вершины из масива
     glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
-    ::line_color(l_c);
-    ::line_style(l_s);
-
-    glLineStipple(1, 0x00ff);
-
     glDrawElements(GL_LINES, 12 , GL_UNSIGNED_INT, &mass); // рисуем не зависмыми линиями
 
-    glLineWidth(6); // size line
-//        glDrawArrays(GL_LINE_LOOP,0,4);  // цельная линия
-    glPointSize(16);  // size point
-    glEnable(GL_POINT_SMOOTH);  // круглые точки
-    glDrawArrays(GL_POINTS, 0, 4);
-    glDisableClientState(GL_VERTEX_ARRAY);
+
+        ::line_color(l_c);
+        ::line_style(l_s);
+        glLineWidth(l_w); // size line
+
+
+
+
+//        ::vertex_color(v_c);
+        if (v_s != 0) glPointSize(v_w);  // size point
+        ::veretex_stile(v_s);
+        glDrawArrays(GL_POINTS, 0, 4);
+        glDisableClientState(GL_VERTEX_ARRAY);
+
+
+
+
     glRotatef(xRot, 1, 0, 0);// для движения мышью
     glRotatef(yRot, 0, 1, 0);
     update();

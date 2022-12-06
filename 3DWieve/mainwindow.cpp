@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setFixedSize( this->size() );  //  не изменяемый размер окна
+    ui->line_width->setRange(1, 40);
 }
 
 MainWindow::~MainWindow()
@@ -33,16 +34,57 @@ void MainWindow::on_line_color_activated(int index)
 void MainWindow::on_line_solid_clicked()
 {
     ui->sceneWidget->l_s = 0;
+    ui->sceneWidget->update();
 }
 
 void MainWindow::on_line_dashed_clicked()
 {
     ui->sceneWidget->l_s = 1;
+    ui->sceneWidget->update();
+}
+
+void MainWindow::on_line_width_valueChanged(int value)
+{
+    ui->sceneWidget->l_w = value;
+    ui->line_progress->setValue(value);
 }
 
 
-void MainWindow::on_line_width_actionTriggered(int action)
+void MainWindow::on_vertex_color_activated(int index)
 {
-    printf("%d", action);
+    ui->sceneWidget->v_c = index;
+}
+
+
+void MainWindow::on_vertex_circle_clicked()
+{
+    ui->sceneWidget->v_s = 1;
+    ui->sceneWidget->update();
+}
+
+
+void MainWindow::on_vertex_no_clicked()
+{
+    ui->sceneWidget->v_s = 0;
+    ui->sceneWidget->update();
+}
+
+
+void MainWindow::on_vertex_square_clicked()
+{
+    ui->sceneWidget->v_s = 2;
+    ui->sceneWidget->update();
+}
+
+
+void MainWindow::on_vertex_wigth_valueChanged(int value)
+{
+     ui->sceneWidget->v_w = value;
+}
+
+void MainWindow::on_background_clicked()
+{
+     QColor color = QColorDialog::getColor(Qt::blue);
+//     ui->sceneWidget->
 }
 

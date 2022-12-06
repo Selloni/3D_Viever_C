@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
+#include <QColorDialog>
 
 #include "scene.h"
 
@@ -32,7 +33,20 @@ private slots:
 
     void on_line_dashed_clicked();
 
-    void on_line_width_actionTriggered(int action);
+    void on_line_width_valueChanged(int value);
+
+    void on_vertex_color_activated(int index);
+
+    void on_vertex_circle_clicked();
+
+    void on_vertex_no_clicked();
+
+    void on_vertex_square_clicked();
+
+    void on_vertex_wigth_valueChanged(int value);
+
+
+    void on_background_clicked();
 
 private:
     Ui::MainWindow *ui;
