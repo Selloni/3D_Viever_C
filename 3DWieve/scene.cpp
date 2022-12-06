@@ -120,8 +120,8 @@ void Scene::mousePressEvent(QMouseEvent* mo) {
     mPos = mo->pos();
 }
 void Scene::mouseMoveEvent(QMouseEvent* mo) {
-    xRot = 1/M_PI*(mo->pos().y() - mPos.y());
-    yRot = 1/M_PI*(mo->pos().x() - mPos.x());
+    xRot = 0.01/M_PI*(mo->pos().y() - mPos.y());
+    yRot = 0.01/M_PI*(mo->pos().x() - mPos.x());
     update(); //обовление кординат
 }
 
