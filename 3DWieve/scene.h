@@ -25,7 +25,10 @@ public:
 
     Scene(QWidget *parent = 0);
     void line_color(int l_c);
-    int a;
+    void line_style(int l_s);
+
+    int l_c = 0;
+    int l_s = 0;
 
 
 };

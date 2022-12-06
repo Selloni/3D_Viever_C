@@ -205,7 +205,7 @@
      <string>style</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="line_dashed_2">
+   <widget class="QRadioButton" name="vertex_square">
     <property name="geometry">
      <rect>
       <x>1010</x>
@@ -218,7 +218,7 @@
      <string>square</string>
     </property>
    </widget>
-   <widget class="QScrollBar" name="line_width_2">
+   <widget class="QScrollBar" name="wertex_width">
     <property name="geometry">
      <rect>
       <x>950</x>
@@ -270,7 +270,7 @@
      <string>no</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="line_color_2">
+   <widget class="QComboBox" name="vertex_color">
     <property name="geometry">
      <rect>
       <x>970</x>

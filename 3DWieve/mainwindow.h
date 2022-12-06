@@ -28,6 +28,12 @@ private slots:
 
     void on_line_color_activated(int index);
 
+    void on_line_solid_clicked();
+
+    void on_line_dashed_clicked();
+
+    void on_line_width_actionTriggered(int action);
+
 private:
     Ui::MainWindow *ui;
     Scene scene;

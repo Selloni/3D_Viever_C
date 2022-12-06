@@ -27,34 +27,40 @@ void line_color(int l_c) {
     }else if (l_c == 2) {
         glColor3d(0.5,0,0);
     }else if (l_c == 3) {
-        glColor3d(1,0.7,0.3);
-    }else if (l_c == 4) {
         glColor3d(0.1,1,0.7);
+    }else if (l_c == 4) {
+        glColor3d(0.1,0,1);
     }
-    update();
+}
+
+void line_style( int l_s) {
+    if (l_s == 0) {
+        glEnable(GL_LINE);
+    } else {
+        glEnable(GL_LINE_STIPPLE); // пунктирная линия
+    }
 }
 
 void Scene::paintGL() {
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
-
     glVertexPointer(3, GL_FLOAT, 0, &arr);  // берет каждые три точки под вершины из масива
-        glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
-        line_color(a);
-//        glColor3d(1,0,1);  //  color
+    glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
+    ::line_color(l_c);
+    ::line_style(l_s);
 
-        glEnable(GL_LINE_STIPPLE); // пунктирная линия
-        glLineStipple(1, 0x00ff);
+    glLineStipple(1, 0x00ff);
 
-        glDrawElements(GL_LINES, 12 , GL_UNSIGNED_INT, &mass); // рисуем не зависмыми линиями
+    glDrawElements(GL_LINES, 12 , GL_UNSIGNED_INT, &mass); // рисуем не зависмыми линиями
 
-        glLineWidth(6); // size line
+    glLineWidth(6); // size line
 //        glDrawArrays(GL_LINE_LOOP,0,4);  // цельная линия
-        glPointSize(16);  // size point
-        glEnable(GL_POINT_SMOOTH);  // круглые точки
-        glDrawArrays(GL_POINTS, 0, 4);
+    glPointSize(16);  // size point
+    glEnable(GL_POINT_SMOOTH);  // круглые точки
+    glDrawArrays(GL_POINTS, 0, 4);
     glDisableClientState(GL_VERTEX_ARRAY);
     glRotatef(xRot, 1, 0, 0);// для движения мышью
     glRotatef(yRot, 0, 1, 0);
+    update();
 }
 
 void MoveCamera() {  // для движения камеры
