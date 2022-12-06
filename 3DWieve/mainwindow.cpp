@@ -33,14 +33,12 @@ void MainWindow::on_line_color_activated(int index)
 
 void MainWindow::on_line_solid_clicked()
 {
-    ui->sceneWidget->l_s = 0;
-    ui->sceneWidget->update();
+    ui->sceneWidget->l_s = 1;
 }
 
 void MainWindow::on_line_dashed_clicked()
 {
-    ui->sceneWidget->l_s = 1;
-    ui->sceneWidget->update();
+    ui->sceneWidget->l_s = 0;
 }
 
 void MainWindow::on_line_width_valueChanged(int value)

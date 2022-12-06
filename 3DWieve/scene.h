@@ -29,11 +29,11 @@ public:
     void vertex_color(int w_c);
     void veretex_stile(int v_s);
 
-    int l_c = 2;
-    int l_s = 0;
+    int l_c = 0;
+    int l_s = 1;
     int l_w = 1;
 
-    int v_c = 2;
+    int v_c = 0;
     int v_s = 0;
     int v_w = 1;
 //    QColor color;

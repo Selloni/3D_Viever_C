@@ -21,38 +21,34 @@ int mass[] = {1,0, 1,2, 1,3, 2,3, 2,4, 3,4 };  // масив соединени�
 
 void line_color(int l_c) {
     if (l_c == 0) {
-        glColor3d(0,0,0.2);
-    } else if (l_c == 1) {
         glColor3d(1,1,1);
-    }else if (l_c == 2) {
+    } else if (l_c == 1) {
+        glColor3d(0,0,0.2);
+    } else if (l_c == 2) {
         glColor3d(0.5,0,0);
-    }else if (l_c == 3) {
+    } else if (l_c == 3) {
         glColor3d(0.1,1,0.7);
-    }else if (l_c == 4) {
+    } else if (l_c == 4) {
         glColor3d(0.1,0,1);
     }
 }
 
 void line_style( int l_s) {
-    glLineStipple(1, 0x00ff);
-    if (l_s == 0) {
+
+    if (l_s == 1) {
+        glDisable(GL_LINE_STIPPLE);
         glEnable(GL_LINE);
-    } else {
+    } else if (l_s == 0) {
+        glLineStipple(1, 0x00ff);
         glEnable(GL_LINE_STIPPLE); // пунктирная линия
     }
 }
 
-//void line_width(int l_w) {
-//    glLineWidth(l_w); // size line
-//}
-
-
 void vertex_color(int w_c) {
-
     if (w_c == 0) {
-        glColor3d(0,0,0.2);
-    } else if (w_c == 1) {
         glColor3d(1,1,1);
+    } else if (w_c == 1) {
+        glColor3d(0,0,0.2);
     }else if (w_c == 2) {
         glColor3d(0.5,0,0);
     }else if (w_c == 3) {
@@ -60,16 +56,14 @@ void vertex_color(int w_c) {
     }else if (w_c == 4) {
         glColor3d(0.1,0,1);
     }
-
 }
 
 void veretex_stile(int v_s) {
-    if (v_s == 0) {
-        glEnable(GL_NONE);
-    } else if (v_s == 1) {
+    if (v_s == 1) {
         glEnable(GL_POINT_SMOOTH);  // круглые точки
-    } else {
-        glEnable(GL_POINT);  // круглые точки
+    } else if (v_s == 2){
+        glDisable(GL_POINT_SMOOTH);
+        glEnable(GL_POINT);  // точки
     }
 }
 
@@ -80,21 +74,22 @@ void Scene::paintGL() {
     glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
     glDrawElements(GL_LINES, 12 , GL_UNSIGNED_INT, &mass); // рисуем не зависмыми линиями
 
-
+    glBegin(GL_LINE);
         ::line_color(l_c);
         ::line_style(l_s);
         glLineWidth(l_w); // size line
+//        glDisable(GL_LINE_STIPPLE); // сброс настроек точек
+    glEnd();
 
-
-
-
-//        ::vertex_color(v_c);
-        if (v_s != 0) glPointSize(v_w);  // size point
+    glBegin(GL_POINT);
+        ::vertex_color(v_c);
+        if (v_s != 0) {
+            glPointSize(v_w);  // size point
+            glDrawArrays(GL_POINTS, 0, 4);
+        }
         ::veretex_stile(v_s);
-        glDrawArrays(GL_POINTS, 0, 4);
         glDisableClientState(GL_VERTEX_ARRAY);
-
-
+    glEnd();
 
 
     glRotatef(xRot, 1, 0, 0);// для движения мышью

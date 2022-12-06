@@ -31,7 +31,7 @@
     <property name="geometry">
      <rect>
       <x>930</x>
-      <y>480</y>
+      <y>490</y>
       <width>121</width>
       <height>32</height>
      </rect>
@@ -64,19 +64,6 @@
     </property>
     <property name="text">
      <string>VERTEX SETTING</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>920</x>
-      <y>410</y>
-      <width>161</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>BACKGROUND SETTING</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -255,12 +242,12 @@
     </property>
     <item>
      <property name="text">
-      <string>Black</string>
+      <string>Write</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Write</string>
+      <string>Black</string>
      </property>
     </item>
     <item>
@@ -369,7 +356,7 @@
      <number>1</number>
     </property>
     <property name="maximum">
-     <number>20</number>
+     <number>40</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -378,14 +365,14 @@
    <widget class="QPushButton" name="background">
     <property name="geometry">
      <rect>
-      <x>910</x>
-      <y>430</y>
-      <width>171</width>
-      <height>32</height>
+      <x>900</x>
+      <y>420</y>
+      <width>181</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>Background color</string>
+     <string>BACKGROUND SETTING</string>
     </property>
    </widget>
   </widget>
