@@ -12,7 +12,7 @@ void Scene::initializeGL() {
     glMatrixMode(GL_PROJECTION);  // ортоганальая поекция
     glLoadIdentity(); // закреплаяем изменения
     glEnable(GL_DEPTH_TEST); // буфер глубины
-    glClearColor( 0.0f, 0.0f, 0.f, 0.0f );  //  colo bakcground
+
 }
 
 float arr[] = {0,0,0, -1,0,-1, 0,1,0, 1,0,0}; // масив вершин
@@ -42,9 +42,9 @@ void line_style( int l_s) {
     }
 }
 
-void line_width(int l_w) {
-    glLineWidth(l_w); // size line
-}
+//void line_width(int l_w) {
+//    glLineWidth(l_w); // size line
+//}
 
 
 void vertex_color(int w_c) {
@@ -74,7 +74,7 @@ void veretex_stile(int v_s) {
 }
 
 void Scene::paintGL() {
-    glClearColor( 0.2f, 0.0f, 0.0f, 0.0f );
+    glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
     glVertexPointer(3, GL_FLOAT, 0, &arr);  // берет каждые три точки под вершины из масива
     glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин

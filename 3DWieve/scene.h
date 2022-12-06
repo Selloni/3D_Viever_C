@@ -36,7 +36,11 @@ public:
     int v_c = 2;
     int v_s = 0;
     int v_w = 1;
-    QColor color;
+//    QColor color;
+    double back_red;
+    double back_green;
+    double back_blue;
+    double back_alpha;
 
 
 };

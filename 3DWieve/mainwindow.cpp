@@ -84,7 +84,10 @@ void MainWindow::on_vertex_wigth_valueChanged(int value)
 
 void MainWindow::on_background_clicked()
 {
-     QColor color = QColorDialog::getColor(Qt::blue);
-//     ui->sceneWidget->
+    QColor color = QColorDialog::getColor(Qt::blue).toRgb();
+    ui->sceneWidget->back_red = color.red();
+    ui->sceneWidget->back_green = color.green();
+    ui->sceneWidget->back_blue = color.blue();
+    ui->sceneWidget->back_alpha = color.alpha();
 }
 
