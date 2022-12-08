@@ -23,14 +23,14 @@ void MainWindow::on_pushButton_clicked()
 
     QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
     char *path_file = ba.data();
-    printf("ssss");
-    printf("%s", path_file);
+//    printf("ssss");
+//    printf("%s", path_file);
     s21_count_v_f(path_file, &obj);
     s21_read(path_file, &obj);
 
     scene.count_vert = obj.count_vert;
     scene.count_facets = obj.count_facets;
-
+//    printf("c-v%d, c-f%d, %f, %d", obj.count_vert, obj.count_facets, obj.vertexes, obj.facets);
     scene.vertexes = obj.vertexes;
     scene.facets = obj.facets;
 
@@ -67,21 +67,18 @@ void MainWindow::on_vertex_color_activated(int index)
 void MainWindow::on_vertex_circle_clicked()
 {
     ui->sceneWidget->v_s = 1;
-    ui->sceneWidget->update();
 }
 
 
 void MainWindow::on_vertex_no_clicked()
 {
     ui->sceneWidget->v_s = 0;
-    ui->sceneWidget->update();
 }
 
 
 void MainWindow::on_vertex_square_clicked()
 {
     ui->sceneWidget->v_s = 2;
-    ui->sceneWidget->update();
 }
 
 
@@ -97,5 +94,41 @@ void MainWindow::on_background_clicked()
     ui->sceneWidget->back_green = color.green();
     ui->sceneWidget->back_blue = color.blue();
     ui->sceneWidget->back_alpha = color.alpha();
+}
+
+
+void MainWindow::on_rotateX_valueChanged(double arg1)
+{
+    scene.rotX = arg1;
+}
+
+
+void MainWindow::on_rotetaY_valueChanged(double arg1)
+{
+    scene.rotY = arg1;
+}
+
+
+void MainWindow::on_rotateZ_valueChanged(double arg1)
+{
+    scene.rotZ = arg1;
+}
+
+
+void MainWindow::on_doubleSpinBox_6_valueChanged(double arg1)
+{
+    scene.moveX = arg1;
+}
+
+
+void MainWindow::on_doubleSpinBox_5_valueChanged(double arg1)
+{
+    scene.moveY = arg1;
+}
+
+
+void MainWindow::on_doubleSpinBox_4_valueChanged(double arg1)
+{
+    scene.moveZ = arg1;
 }
 

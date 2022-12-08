@@ -47,6 +47,18 @@ private slots:
 
     void on_background_clicked();
 
+    void on_rotateX_valueChanged(double arg1);
+
+    void on_rotetaY_valueChanged(double arg1);
+
+    void on_rotateZ_valueChanged(double arg1);
+
+    void on_doubleSpinBox_6_valueChanged(double arg1);
+
+    void on_doubleSpinBox_5_valueChanged(double arg1);
+
+    void on_doubleSpinBox_4_valueChanged(double arg1);
+
 private:
     Ui::MainWindow *ui;
     Scene scene;
