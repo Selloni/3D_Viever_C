@@ -90,12 +90,12 @@
     </property>
     <item>
      <property name="text">
-      <string>Black</string>
+      <string>Write</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Write</string>
+      <string>Black</string>
      </property>
     </item>
     <item>

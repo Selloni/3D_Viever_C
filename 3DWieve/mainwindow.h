@@ -45,7 +45,6 @@ private slots:
 
     void on_vertex_wigth_valueChanged(int value);
 
-
     void on_background_clicked();
 
 private:

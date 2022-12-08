@@ -25,7 +25,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     const uint offsetsAndSize[18];
-    char stringdata0[146];
+    char stringdata0[148];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_MainWindow_t, stringdata0) + ofs), len 
@@ -38,14 +38,14 @@ QT_MOC_LITERAL(34, 23), // "on_line_color_activated"
 QT_MOC_LITERAL(58, 5), // "index"
 QT_MOC_LITERAL(64, 21), // "on_line_solid_clicked"
 QT_MOC_LITERAL(86, 22), // "on_line_dashed_clicked"
-QT_MOC_LITERAL(109, 29), // "on_line_width_actionTriggered"
-QT_MOC_LITERAL(139, 6) // "action"
+QT_MOC_LITERAL(109, 32), // "on_horizontalSlider_valueChanged"
+QT_MOC_LITERAL(142, 5) // "value"
 
     },
     "MainWindow\0on_pushButton_clicked\0\0"
     "on_line_color_activated\0index\0"
     "on_line_solid_clicked\0on_line_dashed_clicked\0"
-    "on_line_width_actionTriggered\0action"
+    "on_horizontalSlider_valueChanged\0value"
 };
 #undef QT_MOC_LITERAL
 
@@ -89,7 +89,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 1: _t->on_line_color_activated((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: _t->on_line_solid_clicked(); break;
         case 3: _t->on_line_dashed_clicked(); break;
-        case 4: _t->on_line_width_actionTriggered((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 4: _t->on_horizontalSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }

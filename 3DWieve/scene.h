@@ -2,12 +2,13 @@
 #define SCENE_H
 
 #include <QWidget>
-//#include <QGLWidget>
 #include <QtOpenGL>
 #include <QOpenGLWidget>
 #include <QOpenGLShaderProgram>
-//#include <QMatrix4x4>
-//#include "mainwindow.h"
+
+extern "C" {
+    #include "../parsing/s21_viewer.h"
+}
 
 class Scene: public QOpenGLWidget
 {
@@ -21,13 +22,21 @@ private slots:
     void initializeGL() override;  // вызываеться после вызова конструктора
     void resizGL( int w, int h);  //  когда изменяеться размер окна
     void paintGL() override;  // нужно перерасовть окно
-public:
 
-    Scene(QWidget *parent = 0);
     void line_color(int l_c);
     void line_style(int l_s);
     void vertex_color(int w_c);
     void veretex_stile(int v_s);
+
+public:
+
+    Scene(QWidget *parent = 0);
+
+
+    unsigned int count_vert; // количество v
+    unsigned int count_facets; // количество f
+    double *vertexes; // хранятся в, цифры
+    unsigned int *facets; // массив, в нем полигоны, эфки 122331
 
     int l_c = 0;
     int l_s = 1;
@@ -41,6 +50,7 @@ public:
     double back_green;
     double back_blue;
     double back_alpha;
+//    unsigned int vertex;
 
 
 };

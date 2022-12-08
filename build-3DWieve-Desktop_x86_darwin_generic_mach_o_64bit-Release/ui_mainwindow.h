@@ -15,9 +15,11 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QScrollBar>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QWidget>
 #include "scene.h"
 
@@ -49,6 +51,8 @@ public:
     QLabel *label_10;
     QLabel *label_11;
     QRadioButton *vertex_circle;
+    QSlider *horizontalSlider;
+    QProgressBar *progressBar;
     QMenuBar *menubar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -99,7 +103,7 @@ public:
         label_6->setGeometry(QRect(900, 140, 58, 16));
         line_width = new QScrollBar(centralwidget);
         line_width->setObjectName(QString::fromUtf8("line_width"));
-        line_width->setGeometry(QRect(950, 140, 131, 16));
+        line_width->setGeometry(QRect(960, 590, 131, 16));
         line_width->setOrientation(Qt::Horizontal);
         label_7 = new QLabel(centralwidget);
         label_7->setObjectName(QString::fromUtf8("label_7"));
@@ -137,6 +141,18 @@ public:
         vertex_circle = new QRadioButton(centralwidget);
         vertex_circle->setObjectName(QString::fromUtf8("vertex_circle"));
         vertex_circle->setGeometry(QRect(890, 310, 61, 20));
+        horizontalSlider = new QSlider(centralwidget);
+        horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
+        horizontalSlider->setGeometry(QRect(940, 140, 141, 25));
+        horizontalSlider->setMinimum(1);
+        horizontalSlider->setMaximum(40);
+        horizontalSlider->setOrientation(Qt::Horizontal);
+        progressBar = new QProgressBar(centralwidget);
+        progressBar->setObjectName(QString::fromUtf8("progressBar"));
+        progressBar->setGeometry(QRect(900, 170, 181, 23));
+        progressBar->setMinimum(1);
+        progressBar->setMaximum(40);
+        progressBar->setValue(24);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));

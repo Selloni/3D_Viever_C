@@ -18,7 +18,6 @@ void Scene::initializeGL() {
 float arr[] = {0,0,0, -1,0,-1, 0,1,0, 1,0,0}; // масив вершин
 int mass[] = {1,0, 1,2, 1,3, 2,3, 2,4, 3,4 };  // масив соединений
 
-
 void line_color(int l_c) {
     if (l_c == 0) {
         glColor3d(1,1,1);
@@ -34,7 +33,6 @@ void line_color(int l_c) {
 }
 
 void line_style( int l_s) {
-
     if (l_s == 1) {
         glDisable(GL_LINE_STIPPLE);
         glEnable(GL_LINE);
@@ -68,11 +66,13 @@ void veretex_stile(int v_s) {
 }
 
 void Scene::paintGL() {
+    count_vert = 4;
+    count_facets = 12;
     glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
     glVertexPointer(3, GL_FLOAT, 0, &arr);  // берет каждые три точки под вершины из масива
     glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
-    glDrawElements(GL_LINES, 12 , GL_UNSIGNED_INT, &mass); // рисуем не зависмыми линиями
+    glDrawElements(GL_LINES, count_facets, GL_UNSIGNED_INT, &mass); // рисуем не зависмыми линиями
 
     glBegin(GL_LINE);
         ::line_color(l_c);
@@ -85,7 +85,7 @@ void Scene::paintGL() {
         ::vertex_color(v_c);
         if (v_s != 0) {
             glPointSize(v_w);  // size point
-            glDrawArrays(GL_POINTS, 0, 4);
+            glDrawArrays(GL_POINTS, 0, count_vert);
         }
         ::veretex_stile(v_s);
         glDisableClientState(GL_VERTEX_ARRAY);

@@ -18,12 +18,20 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     data_t obj;
-    QString qpath_file;
-    qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
+    QString qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
     QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
     char *path_file = ba.data();
+
     s21_count_v_f(path_file, &obj);
+
     s21_read(path_file, &obj);
+
+    scene.count_vert = obj.count_vert;
+    scene.count_facets = obj.count_facets;
+
+    scene.vertexes = obj.vertexes;
+    scene.facets = obj.facets;
+
 }
 
 void MainWindow::on_line_color_activated(int index)
