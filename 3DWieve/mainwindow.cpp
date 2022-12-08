@@ -18,12 +18,14 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     data_t obj;
-    QString qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
+    QString qpath_file = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
+    qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
+
     QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
     char *path_file = ba.data();
-
+    printf("ssss");
+    printf("%s", path_file);
     s21_count_v_f(path_file, &obj);
-
     s21_read(path_file, &obj);
 
     scene.count_vert = obj.count_vert;
