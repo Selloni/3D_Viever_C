@@ -24,15 +24,15 @@ void Scene::initializeGL() {
 
 //    arr = obj.vertexes;
 //    mass = obj.facets;
-//    printf("%d, %d, %d, %d", count_vertex);
+
     glScalef(rotX, rotY, rotY);  // для маштаба
     glMatrixMode(GL_PROJECTION);  // ортоганальая поекция
     glLoadIdentity(); // закреплаяем изменения
     glEnable(GL_DEPTH_TEST); // буфер глубины
 }
 
-//double arr[] = {0,0,0, -1,0,-1, 0,1,0, 1,0,0}; // масив вершин
-//int mass[] = {1,0, 1,2, 1,3, 2,3, 2,4, 3,4 };  // масив соединений
+double arr[] = {0,0,0, -1,0,-1, 0,1,0, 1,0,0}; // масив вершин
+int mass[] = {1,0, 1,2, 1,3, 2,3, 2,4, 3,4 };  // масив соединений
 
 void line_color(int l_c) {
     if (l_c == 0) {
@@ -83,13 +83,13 @@ void veretex_stile(int v_s) {
 
 void Scene::paintGL() {
 
-//    count_vert = 4;
-//    count_facets = 12;
+    count_vert = 4;
+    count_facets = 12;
     glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
-    glVertexPointer(3, GL_DOUBLE, 0, &vertexes);  // берет каждые три точки под вершины из масива
+    glVertexPointer(3, GL_DOUBLE, 0, &arr);  // берет каждые три точки под вершины из масива
     glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
-    glDrawElements(GL_LINES, count_facets, GL_UNSIGNED_INT, &facets); // рисуем не зависмыми линиями
+    glDrawElements(GL_LINES, count_facets, GL_UNSIGNED_INT, &mass); // рисуем не зависмыми линиями
 
     glBegin(GL_LINE);
         ::line_color(l_c);

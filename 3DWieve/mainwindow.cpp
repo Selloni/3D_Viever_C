@@ -23,9 +23,10 @@ void MainWindow::on_pushButton_clicked()
 
     QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
     char *path_file = ba.data();
+    int err_flag = 1;
 //    printf("ssss");
 //    printf("%s", path_file);
-    s21_count_v_f(path_file, &obj);
+    err_flag = s21_count_v_f(path_file, &obj);
     s21_read(path_file, &obj);
 
     scene.count_vert = obj.count_vert;

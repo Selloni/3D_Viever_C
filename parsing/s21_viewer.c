@@ -1,17 +1,16 @@
 #include "s21_viewer.h"
 
-// int main() {
-//   data_t obj;
-//   // FILE* f = fopen("/Users/myrebean/C8_3DViewer_v1.0-0/src/test.obj", "r");
-//   // s21_count_v(f, &obj);
-//   s21_count_v_f("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj);
-//   s21_read("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj);
-//   // s21_digits("/Users/myrebean/C8_3DViewer_v1.0-0/src/test.obj", &obj);
-//   for (int i = 0; i < 32; i++ ) {
-//     printf("cf-%d, cv-%d, ff-%d, vv(%lf) \n", obj.count_facets, obj.count_vert, obj.facets[i], obj.vertexes[i]);
-//   }
-//   return 0;
-// }
+//int main() {
+// data_t obj;
+// // FILE* f = fopen("/Users/myrebean/C8_3DViewer_v1.0-0/src/test.obj", "r");
+// // s21_count_v(f, &obj);
+// s21_count_v_f("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj);
+// s21_read("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj);
+// // s21_digits("/Users/myrebean/C8_3DViewer_v1.0-0/src/test.obj", &obj);
+////   for (int i = 0; i != obj.count_vert; ++i) {
+////     printf("%lf ", obj.vertexes[i]);
+////   }
+//}
 
 int s21_count_v_f(char* file_name, data_t *obj) { // открыли и посчитали, сколько нам потребуется памяти
     FILE *text;
@@ -55,28 +54,30 @@ int s21_space_for_Fsupp(char *ch) {
 void s21_read(char* file_name, data_t *obj) {
     FILE *text;
     char* ch = malloc(sizeof(char) * 255);
-    int ind_rows = 1;
-    int ind_pol = 1;
-    int pred = 0;
-    int now = 1;
 
     obj->vertexes = malloc(obj->count_vert * 3 * sizeof(double));
     obj->facets = malloc(obj->count_facets * 6 * sizeof(unsigned int));
 
         if ((text = fopen(file_name, "r")) != NULL) {
-            while((fgets(ch, 255, text)) != NULL) { // считываем построчно
-                if (ch[pred] == 'v' && ch[now] == ' ') {
-                    sscanf(ch, "v %lf %lf %lf", &obj->vertexes[pred],\
-                    &obj->vertexes[pred+1], &obj->vertexes[pred+2]); // почему-то записывает, ток 6/8 строк в кубе
-                    ind_rows++;
-                    }
-
-                if (ch[pred] == 'f' && ch[now] == ' ') {
-                    s21_Fconnect(obj, ch);
-                    ind_pol++;
-                    }
-                }
-            }
+            // while((fgets(ch, 255, text)) != NULL) { // считываем построчно
+                fgets(ch, 255, text);
+                int i = 0;
+                // if (ch[0] == 'v' && ch[1] == ' ')
+                    ch += 2;
+                    sscanf(ch, "%lf", &obj->vertexes[i++]);
+                    printf("%lf", obj->vertexes[0]);
+                    ch += 9;
+                    sscanf(ch, "%lf", &obj->vertexes[i++]);
+                    printf("%lf", obj->vertexes[1]);
+                    ch += 10;
+                    sscanf(ch, "%lf", &obj->vertexes[i++]);
+                    printf("%lf", obj->vertexes[2]);
+                    // sscanf(ch, "v %lf %lf %lf", &obj->vertexes[0], &obj->vertexes[1], &obj->vertexes[2]); // почему-то записывает, ток 6/8 строк в кубе
+                //printf("%lf %lf %lf\n", obj->vertexes[0], obj->vertexes[1], obj->vertexes[2]);
+                // if (ch[0] == 'f' && ch[1] == ' ')
+                //     s21_Fconnect(obj, ch);
+            //}
+        }
     free(obj->vertexes);
     free(obj->facets);
     free(ch);
@@ -116,7 +117,6 @@ void s21_Fconnect(data_t *obj, char *ch) {
 
 int s21_digit_supp(char ind) {
     int result = 0;
-    
         if (ind >= '0' && ind <= '9') {
             result = 1;
             }
