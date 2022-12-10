@@ -17,23 +17,25 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    data_t obj;
-    QString qpath_file = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
-    qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
+     index_f = 0;
+     index_v = 0;
+     data_t obj;
+//    QString qpath_file = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
+//    qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
 
-    QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
-    char *path_file = ba.data();
-    int err_flag = 1;
-//    printf("ssss");
-//    printf("%s", path_file);
-    err_flag = s21_count_v_f(path_file, &obj);
-    s21_read(path_file, &obj);
+//    QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
+//    char *path_file = ba.data();
+//    int err_flag = 1;
+////    err_flag = s21_count_v_f(path_file, &obj);
+////    s21_read(path_file, &obj);
 
-    scene.count_vert = obj.count_vert;
-    scene.count_facets = obj.count_facets;
-//    printf("c-v%d, c-f%d, %f, %d", obj.count_vert, obj.count_facets, obj.vertexes, obj.facets);
-    scene.vertexes = obj.vertexes;
-    scene.facets = obj.facets;
+//    scene.qcount_vert = obj.count_vert;
+//    scene.qcount_facets = obj.count_facets;
+//    scene.qvertexes = obj.vertexes;
+//    scene.qfacets = obj.facets;
+
+//    free(obj.vertexes);
+//    free(obj.facets);
 
 }
 
@@ -97,7 +99,6 @@ void MainWindow::on_background_clicked()
     ui->sceneWidget->back_alpha = color.alpha();
 }
 
-
 void MainWindow::on_rotateX_valueChanged(double arg1)
 {
     scene.rotX = arg1;
@@ -132,4 +133,3 @@ void MainWindow::on_doubleSpinBox_4_valueChanged(double arg1)
 {
     scene.moveZ = arg1;
 }
-

@@ -32,10 +32,10 @@ public:
 
     Scene(QWidget *parent = 0);
 
-    unsigned int count_vert = 0; // количество v
-    unsigned int count_facets = 0; // количество f
-    double *vertexes = 0; // хранятся в, цифры
-    unsigned int *facets = 0; // массив, в нем полигоны, эфки 122331
+    unsigned int qcount_vert = 0; // количество v
+    unsigned int qcount_facets = 0; // количество f
+    double *qvertexes = 0; // хранятся в, цифры
+    unsigned int *qfacets = 0; // массив, в нем полигоны, 122331
 
     int l_c = 0;
     int l_s = 1;

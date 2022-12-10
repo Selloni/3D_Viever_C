@@ -10,20 +10,6 @@ Scene::Scene(QWidget *parent):
 //unsigned int *mass;
 
 void Scene::initializeGL() {
-//    data_t obj;
-//    QString qpath_file = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
-//    QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
-//    char *path_file = ba.data();
-//    printf("ssss");
-//    printf("%s", path_file);
-//    s21_count_v_f(path_file, &obj);
-//    s21_read(path_file, &obj);
-
-//    count_vert = obj.count_vert;
-//    count_facets = obj.count_facets;
-
-//    arr = obj.vertexes;
-//    mass = obj.facets;
 
     glScalef(rotX, rotY, rotY);  // для маштаба
     glMatrixMode(GL_PROJECTION);  // ортоганальая поекция
@@ -83,13 +69,13 @@ void veretex_stile(int v_s) {
 
 void Scene::paintGL() {
 
-    count_vert = 4;
-    count_facets = 12;
+    qcount_vert = 4;
+    qcount_facets = 12;
     glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
     glVertexPointer(3, GL_DOUBLE, 0, &arr);  // берет каждые три точки под вершины из масива
     glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
-    glDrawElements(GL_LINES, count_facets, GL_UNSIGNED_INT, &mass); // рисуем не зависмыми линиями
+    glDrawElements(GL_LINES, qcount_facets, GL_UNSIGNED_INT, &mass); // рисуем не зависмыми линиями
 
     glBegin(GL_LINE);
         ::line_color(l_c);
@@ -102,7 +88,7 @@ void Scene::paintGL() {
         ::vertex_color(v_c);
         if (v_s != 0) {
             glPointSize(v_w);  // size point
-            glDrawArrays(GL_POINTS, 0, count_vert);
+            glDrawArrays(GL_POINTS, 0, qcount_vert);
         }
         ::veretex_stile(v_s);
         glDisableClientState(GL_VERTEX_ARRAY);
