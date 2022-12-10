@@ -1,5 +1,5 @@
 git:
 	git add .
-	git commit -m "переделать парсинг"
+	git commit -m "исправил парсинг"
 	git push
 
