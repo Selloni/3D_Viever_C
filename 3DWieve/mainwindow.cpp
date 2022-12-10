@@ -17,9 +17,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-     index_f = 0;
-     index_v = 0;
-     data_t obj;
+//     index_f = 0;
+//     index_v = 0;
+//     data_t obj;
 //    QString qpath_file = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
 //    qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
 

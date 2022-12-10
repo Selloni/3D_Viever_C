@@ -1,20 +1,20 @@
 #include "s21_viewer.h"
 
 // int main() {
-//     data_t obj = {0};
-//     index_f = 0;
-//     index_v = 0;
-//     s21_count_v_f("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj);
-//     s21_read("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj);
+//    data_t obj = {0};
+//    unsigned int index_f = 0;
+//    unsigned int index_v = 0;
+//    s21_count_v_f("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj);
+//    s21_read("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj, index_f, index_v);
         
-//     for (int i = 0; i < index_f; i++) {
-//         // printf("vertex%lf  |  ",obj.vertexes[i]);
-//         printf("%u",obj.facets[i]);
-//         // printf("\n");
-//     }
-//     free(obj.vertexes);
-//     free(obj.facets);
-//     return 0;
+//    for (int i = 0; i < 72; i++) {
+//     //    printf("vertex%lf\n  |  ",obj.vertexes[i]);
+//        printf("%u",obj.facets[i]);
+//        // printf("\n");
+//    }
+//    free(obj.vertexes);
+//    free(obj.facets);
+//    return 0;
 // }
 
 int s21_count_v_f(char* file_name, data_t *obj) { // открыли и посчитали, сколько нам потребуется памяти
@@ -55,7 +55,7 @@ int s21_space_for_Fsupp(char *ch) {
     return space_count;
 }
 
-void s21_read(char* file_name, data_t *obj) {
+void s21_read(char* file_name, data_t *obj, unsigned int index_f, unsigned int index_v) {
     FILE *text;
     char* ch = malloc(sizeof(char) * 255);
     obj->vertexes = malloc((obj->count_vert * 3 * sizeof(double) + 1));
@@ -70,14 +70,14 @@ void s21_read(char* file_name, data_t *obj) {
                     index_v++;
                 }
                 else if (ch[0] == 'f' && ch[1] == ' ') {
-                    s21_Fconnect(&obj, ch);
+                    index_f = s21_Fconnect(obj, ch, index_f);
                 }
             }
         }
     free(ch);
 }
 
-void s21_Fconnect(data_t **obj, char *ch) {
+unsigned int s21_Fconnect(data_t *obj, char *ch, unsigned int  index_f) {
     
     int closure_val = '\0'; // для замыкания полигона
     int i_flag = 0; // порядковый номер записанного числа
@@ -94,7 +94,7 @@ void s21_Fconnect(data_t **obj, char *ch) {
             }
             char * pEnd;
             val = strtol(str, &pEnd, 10);
-            (**obj).facets[index_f] = val;
+            (*obj).facets[index_f] = val;
 
             if (i_flag == 1) {
                 // printf("end%d|", index_f);
@@ -103,13 +103,14 @@ void s21_Fconnect(data_t **obj, char *ch) {
             }
             if (i_flag != 1) {
                 // printf("dubl%d|", index_f);
-                (**obj).facets[++index_f] = val;
+                (*obj).facets[++index_f] = val;
                 ++index_f;
                 
             }
         }
     }
-    (**obj).facets[index_f++] = closure_val;
+    (*obj).facets[index_f++] = closure_val;
+    return (index_f);
 }
 
 int s21_digit_supp(char ind) {
