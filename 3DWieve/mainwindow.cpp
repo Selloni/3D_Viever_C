@@ -17,26 +17,36 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-//     index_f = 0;
-//     index_v = 0;
-//     data_t obj;
-//    QString qpath_file = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
-//    qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
+     unsigned int index_f = 0;
+     unsigned int index_v = 0;
+     data_t obj;
+    QString qpath_file = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
+    qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
 
-//    QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
-//    char *path_file = ba.data();
-//    int err_flag = 1;
-////    err_flag = s21_count_v_f(path_file, &obj);
-////    s21_read(path_file, &obj);
+    QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
+    char *path_file = ba.data();
+    int err_flag = 1;
+    err_flag = s21_count_v_f(path_file, &obj);
+    s21_read(path_file, &obj, index_f, index_v);
 
-//    scene.qcount_vert = obj.count_vert;
-//    scene.qcount_facets = obj.count_facets;
-//    scene.qvertexes = obj.vertexes;
-//    scene.qfacets = obj.facets;
+    scene.qcount_vert = obj.count_vert;
+    scene.qcount_facets = obj.count_facets;
+    scene.qvertexes = obj.vertexes;
+    scene.qfacets = obj.facets;
+    for (int i = 0; i < 72; i++) {
+     //    printf("vertex%lf\n  |  ",obj.vertexes[i]);
+        printf("%u ",scene.qfacets[i]);
+        // printf("\n");
+    }
+     printf("\n");
+    for (int i = 0; i < 24; i++) {
+         printf("%lf|  ",scene.qvertexes[i]);
 
-//    free(obj.vertexes);
-//    free(obj.facets);
-
+        // printf("\n");
+    }
+    free(obj.vertexes);
+    free(obj.facets);
+    scene.update();
 }
 
 void MainWindow::on_line_color_activated(int index)

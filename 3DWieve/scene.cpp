@@ -6,8 +6,8 @@ Scene::Scene(QWidget *parent):
     QOpenGLWidget (parent)
 {
 }
-//double *arr;
-//unsigned int *mass;
+//double *arr = ;
+//unsigned int *mass = ;
 
 void Scene::initializeGL() {
 
@@ -69,14 +69,14 @@ void veretex_stile(int v_s) {
 
 void Scene::paintGL() {
 
-    qcount_vert = 4;
-    qcount_facets = 12;
+//    qcount_vert = 4;
+//    qcount_facets = 12;
     glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
-    glVertexPointer(3, GL_DOUBLE, 0, &arr);  // берет каждые три точки под вершины из масива
+    glVertexPointer(3, GL_DOUBLE, 0, &qvertexes);  // берет каждые три точки под вершины из масива
     glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
-    glDrawElements(GL_LINES, qcount_facets, GL_UNSIGNED_INT, &mass); // рисуем не зависмыми линиями
-
+    glDrawElements(GL_LINES, qcount_facets, GL_UNSIGNED_INT, &qfacets); // рисуем не зависмыми линиями
+    glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
     glBegin(GL_LINE);
         ::line_color(l_c);
         ::line_style(l_s);
