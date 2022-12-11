@@ -4,21 +4,15 @@
 
 Scene::Scene(QWidget *parent):
     QOpenGLWidget (parent)
+
 {
-}
-//double *arr = ;
-//unsigned int *mass = ;
-
-void Scene::initializeGL() {
-
-    glScalef(rotX, rotY, rotY);  // для маштаба
-    glMatrixMode(GL_PROJECTION);  // ортоганальая поекция
-    glLoadIdentity(); // закреплаяем изменения
-    glEnable(GL_DEPTH_TEST); // буфер глубины
+     settings = new QSettings (QDir::homePath() + "/save_config/settings.conf", QSettings::IniFormat);
+     loadSetting();
+     printf("losf");
 }
 
 double arr[] = {0,0,0, -1,0,-1, 0,1,0, 1,0,0}; // масив вершин
-int mass[] = {1,0, 1,2, 1,3, 2,3, 2,4, 3,4 };  // масив соединений
+unsigned int mass[] = {1,0, 1,2, 1,3, 2,3, 2,4, 3,4 };  // масив соединений
 
 void line_color(int l_c) {
     if (l_c == 0) {
@@ -67,16 +61,41 @@ void veretex_stile(int v_s) {
     }
 }
 
+void projection(int proj) {
+    // Создаем проекцию
+    glMatrixMode(GL_PROJECTION);  // ортоганальая поекция
+    glLoadIdentity(); // загружаем матрицу
+    if (!proj){
+        // Establish clipping volume (left, right, bottom, top, near, far)
+        glFrustum(-10, 10, -10, 10, 1, 100);  //  перспективная проекция
+    }else{
+        glOrtho(-10, 10, -10, 10, -10, 100);  // отоганальная
+    }
+}
+
+void Scene::initializeGL() {
+
+    glScalef(rotX, rotY, rotY);  // для маштаба
+    glEnable(GL_DEPTH_TEST); // буфер глубины
+}
+
+void Scene::resizGL( int w, int h) {
+    // Set Viewport to window dimensions
+    glViewport( 0, 0, w, h );
+    projection(proj);
+}
+
 void Scene::paintGL() {
 
-//    qcount_vert = 4;
-//    qcount_facets = 12;
+    qcount_vert = 4;
+    qcount_facets = 12;
     glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
-    glVertexPointer(3, GL_DOUBLE, 0, &qvertexes);  // берет каждые три точки под вершины из масива
+    glVertexPointer(3, GL_DOUBLE, 0, &arr);  // берет каждые три точки под вершины из масива
     glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
-    glDrawElements(GL_LINES, qcount_facets, GL_UNSIGNED_INT, &qfacets); // рисуем не зависмыми линиями
+    glDrawElements(GL_LINES, qcount_facets, GL_UNSIGNED_INT, &mass); // рисуем не зависмыми линиями
     glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
+
     glBegin(GL_LINE);
         ::line_color(l_c);
         ::line_style(l_s);
@@ -94,29 +113,35 @@ void Scene::paintGL() {
         glDisableClientState(GL_VERTEX_ARRAY);
     glEnd();
 
-//    glLoadIdentity(); // восанавливаем систему координат, загружаем единичную матрицу
-//    glTranslatef(moveX, moveY, moveZ);  // для семещения по осям
-
     glRotatef(xRot, 1, 0, 0);// для движения мышью
     glRotatef(yRot, 0, 1, 0);
     glRotatef(zRot, 0, 0, 1);
+
+    saveSetting();
     update();
+
 }
 
+void Scene::saveSetting()
+{
+    settings->value("l_c", l_c);
+    settings->value("l_s", l_s);
+    settings->value("l_w", l_w);
+    settings->value("v_c", v_c);
+    settings->value("v_s", v_s);
+    settings->value("v_w", v_w);
 
-
-
-
-void Scene::resizGL( int w, int h) {
-    // Set Viewport to window dimensions
-    glViewport( 0, 0, w, h );
-    // Создаем проекцию
-    glMatrixMode(GL_PROJECTION);  // ортоганальая поекция
-    glLoadIdentity(); // загружаем матрицу
-    // Establish clipping volume (left, right, bottom, top, near, far)
-    glFrustum(-100, 100, -100, 100, 2, 100);  //  перспективная проекция
 }
 
+void Scene::loadSetting()
+{
+    l_c = settings->value("l_c", l_c).toInt();
+    l_s = settings->value("l_s", l_s).toInt();
+    l_s = settings->value("l_w", l_w).toInt();
+    v_c = settings->value("v_c", v_c).toInt();
+    v_s = settings->value("v_s", v_s).toInt();
+    v_w = settings->value("v_w", v_w).toInt();
+}
 
 void Scene::mousePressEvent(QMouseEvent* mo) {
     mPos = mo->pos();

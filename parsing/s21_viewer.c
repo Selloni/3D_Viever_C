@@ -6,12 +6,15 @@
 //    unsigned int index_v = 0;
 //    s21_count_v_f("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj);
 //    s21_read("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj, index_f, index_v);
-        
-//    for (int i = 0; i < 24; i++) {
-//        printf("%lf| ",obj.vertexes[i]);
-//     //    printf("%u",obj.facets[i]);
-//        // printf("\n");
-//    }
+// //     for (int i = 0; i < 24; i++) {
+// //     //    printf("%u",obj.facets[i]);
+// //        // printf("\n");
+// //    }
+// //    for (int i = 0; i < 24; i++) {
+// //        printf("%lf| ",obj.vertexes[i]);
+// //     //    printf("%u",obj.facets[i]);
+// //        // printf("\n");
+// //    }
 //    free(obj.vertexes);
 //    free(obj.facets);
 //    return 0;

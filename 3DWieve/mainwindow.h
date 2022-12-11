@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QColorDialog>
+#include <QSettings>
 
 #include "scene.h"
 
@@ -25,6 +26,7 @@ public:
     ~MainWindow();
 
 private slots:
+
     void on_pushButton_clicked();
 
     void on_line_color_activated(int index);
@@ -58,6 +60,8 @@ private slots:
     void on_doubleSpinBox_5_valueChanged(double arg1);
 
     void on_doubleSpinBox_4_valueChanged(double arg1);
+
+    void on_actioninfo_triggered();
 
 private:
     Ui::MainWindow *ui;

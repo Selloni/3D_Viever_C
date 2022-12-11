@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+/////// вопрос с цветом и с выводом фигруы и как что то сделать перед тем как запуститсья прогармма
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -8,15 +8,23 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     this->setFixedSize( this->size() );  //  не изменяемый размер окна
     ui->line_width->setRange(1, 40);
+
+
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+//    scene.saveSetting();
+
 }
 
 void MainWindow::on_pushButton_clicked()
 {
+
+
+
      unsigned int index_f = 0;
      unsigned int index_v = 0;
      data_t obj;
@@ -143,3 +151,9 @@ void MainWindow::on_doubleSpinBox_4_valueChanged(double arg1)
 {
     scene.moveZ = arg1;
 }
+
+void MainWindow::on_actioninfo_triggered()
+{
+
+}
+

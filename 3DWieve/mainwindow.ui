@@ -493,7 +493,19 @@
      <height>24</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuTolls">
+    <property name="title">
+     <string>Tolls</string>
+    </property>
+    <addaction name="actioninfo"/>
+   </widget>
+   <addaction name="menuTolls"/>
   </widget>
+  <action name="actioninfo">
+   <property name="text">
+    <string>info</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
