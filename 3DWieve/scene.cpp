@@ -1,14 +1,14 @@
 #include "scene.h"
-
+#include <iostream>
 
 
 Scene::Scene(QWidget *parent):
     QOpenGLWidget (parent)
 
 {
+//     setlocale(LC_ALL, "en_US.UTF-8");
      settings = new QSettings (QDir::homePath() + "/save_config/settings.conf", QSettings::IniFormat);
      loadSetting();
-     printf("losf");
 }
 
 double arr[] = {0,0,0, -1,0,-1, 0,1,0, 1,0,0}; // масив вершин
@@ -61,6 +61,7 @@ void veretex_stile(int v_s) {
     }
 }
 
+
 void projection(int proj) {
     // Создаем проекцию
     glMatrixMode(GL_PROJECTION);  // ортоганальая поекция
@@ -74,7 +75,7 @@ void projection(int proj) {
 }
 
 void Scene::initializeGL() {
-
+    setlocale(LC_ALL, "en_US.UTF-8");
     glScalef(rotX, rotY, rotY);  // для маштаба
     glEnable(GL_DEPTH_TEST); // буфер глубины
 }
@@ -86,7 +87,25 @@ void Scene::resizGL( int w, int h) {
 }
 
 void Scene::paintGL() {
+    setlocale(LC_ALL, "en_US.UTF-8");
+//    qfacets[1] = 22;
+//    qfacets[0] = 22;
+//    qfacets[3] = 22;
+    std::cout << file.toStdString();
 
+    if (i == 0){
+//    for (int i = 0; i < 72; i++) {
+////        obj
+////       std::cout << "\n|"<< qcount_facets << "|\n";
+//    }
+     printf("\n");
+//    for (int i = 0; i < 24; i++) {
+//         printf("%lf|  ",&qvertexes[i]);
+//    }
+//    printf("c_f%u", qcount_facets);
+//    printf("c_v%u", qcount_vert);
+    }
+    i++;
     qcount_vert = 4;
     qcount_facets = 12;
     glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground

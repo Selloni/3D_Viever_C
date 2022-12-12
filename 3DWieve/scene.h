@@ -10,11 +10,17 @@ extern "C" {
     #include "../parsing/s21_viewer.h"
 }
 
+typedef struct DATA1{
+    unsigned int count_vert; // количество v
+    unsigned int count_facets; // количество f
+    double *vertexes; // хранятся в, цифры
+    unsigned int *facets; // массив, в нем полигоны, эфки 122331
+} data_t2;
+
 class Scene: public QOpenGLWidget
 {
 private slots:
     QSettings *settings;
-
     float xRot, yRot, zRot;
     QPoint mPos;
     void mousePressEvent(QMouseEvent*) override; // click mouse
@@ -28,11 +34,11 @@ private slots:
     void line_style(int l_s);
     void vertex_color(int w_c);
     void veretex_stile(int v_s);
-
-
     void loadSetting();
 
 public:
+
+    int i=0 ;
     void saveSetting();
 
     Scene(QWidget *parent = 0);
@@ -46,10 +52,14 @@ public:
     int l_s = 1;  // style
     int l_w = 1; // width
 
+    data_t2 *obj;
+
+    int yy = 0;
     int v_c = 0;
     int v_s = 0;
     int v_w = 1;
 //    QColor color;
+    QString file;
     double back_red;
     double back_green;
     double back_blue;

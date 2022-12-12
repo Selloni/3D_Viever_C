@@ -1,5 +1,5 @@
 git:
 	git add .
-	git commit -m "не сохраняет данные при выходе из программы"
+	git commit -m "Айнур наделал дел "
 	git push
 

@@ -97,7 +97,7 @@ unsigned int s21_Fconnect(data_t *obj, char *ch, unsigned int  index_f) {
             }
             char * pEnd;
             val = strtol(str, &pEnd, 10);
-            (*obj).facets[index_f] = val;
+            (*obj).facets[index_f] = val - 1;
 
             if (i_flag == 1) {
                 // printf("end%d|", index_f);

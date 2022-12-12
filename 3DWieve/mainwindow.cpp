@@ -1,10 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <iostream>
 /////// вопрос с цветом и с выводом фигруы и как что то сделать перед тем как запуститсья прогармма
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    setlocale(LC_ALL, "en_US.UTF-8");
     ui->setupUi(this);
     this->setFixedSize( this->size() );  //  не изменяемый размер окна
     ui->line_width->setRange(1, 40);
@@ -23,11 +25,11 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
 
+    setlocale(LC_ALL, "en_US.UTF-8");
 
-
-     unsigned int index_f = 0;
-     unsigned int index_v = 0;
-     data_t obj;
+    unsigned int index_f = 0;
+    unsigned int index_v = 0;
+    data_t obj;
     QString qpath_file = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
     qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
 
@@ -37,24 +39,30 @@ void MainWindow::on_pushButton_clicked()
     err_flag = s21_count_v_f(path_file, &obj);
     s21_read(path_file, &obj, index_f, index_v);
 
-    scene.qcount_vert = obj.count_vert;
-    scene.qcount_facets = obj.count_facets;
-    scene.qvertexes = obj.vertexes;
-    scene.qfacets = obj.facets;
-    for (int i = 0; i < 72; i++) {
-     //    printf("vertex%lf\n  |  ",obj.vertexes[i]);
-        printf("%u ",scene.qfacets[i]);
-        // printf("\n");
-    }
-     printf("\n");
-    for (int i = 0; i < 24; i++) {
-         printf("%lf|  ",scene.qvertexes[i]);
+//        for (int i = 0; i < 72; i++) {
+//            printf("%u ",obj.facets[i]);
+//        }
+//         printf("\n");
+//        for (int i = 0; i < 24; i++) {
+//             printf("%lf|  ",obj.vertexes[i]);
+//        }
+      ui->sceneWidget->file = qpath_file;
+    ui->sceneWidget->qcount_vert = obj.count_vert;
+    ui->sceneWidget->qcount_facets = obj.count_facets;
+    ui->sceneWidget->qvertexes = obj.vertexes;
+    ui->sceneWidget->qfacets = obj.facets;
 
-        // printf("\n");
-    }
+    std::cout<<ui->sceneWidget->qcount_facets;
+//    for (int i = 0; i < 72; i++) {
+//        printf("%u ",scene.qfacets[i]);
+//    }
+//     printf("\n");
+//    for (int i = 0; i < 24; i++) {
+//         printf("%lf|  ",scene.qvertexes[i]);
+//    }
     free(obj.vertexes);
     free(obj.facets);
-    scene.update();
+    ui->sceneWidget->update();
 }
 
 void MainWindow::on_line_color_activated(int index)
