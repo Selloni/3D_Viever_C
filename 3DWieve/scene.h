@@ -10,13 +10,6 @@ extern "C" {
     #include "../parsing/s21_viewer.h"
 }
 
-typedef struct DATA1{
-    unsigned int count_vert; // количество v
-    unsigned int count_facets; // количество f
-    double *vertexes; // хранятся в, цифры
-    unsigned int *facets; // массив, в нем полигоны, эфки 122331
-} data_t2;
-
 class Scene: public QOpenGLWidget
 {
 private slots:
@@ -38,7 +31,6 @@ private slots:
 
 public:
 
-    int i=0 ;
     void saveSetting();
 
     Scene(QWidget *parent = 0);
@@ -52,7 +44,6 @@ public:
     int l_s = 1;  // style
     int l_w = 1; // width
 
-    data_t2 *obj;
 
     int yy = 0;
     int v_c = 0;

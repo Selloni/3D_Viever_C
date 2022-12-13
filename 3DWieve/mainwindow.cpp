@@ -30,8 +30,8 @@ void MainWindow::on_pushButton_clicked()
     unsigned int index_f = 0;
     unsigned int index_v = 0;
     data_t obj;
-    QString qpath_file = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
-    qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
+//    QString qpath_file = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
+    QString qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
 
     QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
     char *path_file = ba.data();
@@ -46,7 +46,7 @@ void MainWindow::on_pushButton_clicked()
 //        for (int i = 0; i < 24; i++) {
 //             printf("%lf|  ",obj.vertexes[i]);
 //        }
-      ui->sceneWidget->file = qpath_file;
+//    ui->sceneWidget->file = qpath_file;
     ui->sceneWidget->qcount_vert = obj.count_vert;
     ui->sceneWidget->qcount_facets = obj.count_facets;
     ui->sceneWidget->qvertexes = obj.vertexes;

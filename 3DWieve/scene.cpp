@@ -6,7 +6,7 @@ Scene::Scene(QWidget *parent):
     QOpenGLWidget (parent)
 
 {
-//     setlocale(LC_ALL, "en_US.UTF-8");
+     setlocale(LC_ALL, "en_US.UTF-8");
      settings = new QSettings (QDir::homePath() + "/save_config/settings.conf", QSettings::IniFormat);
      loadSetting();
 }
@@ -87,57 +87,43 @@ void Scene::resizGL( int w, int h) {
 }
 
 void Scene::paintGL() {
-    setlocale(LC_ALL, "en_US.UTF-8");
-//    qfacets[1] = 22;
-//    qfacets[0] = 22;
-//    qfacets[3] = 22;
-    std::cout << file.toStdString();
 
-    if (i == 0){
-//    for (int i = 0; i < 72; i++) {
-////        obj
-////       std::cout << "\n|"<< qcount_facets << "|\n";
-//    }
-     printf("\n");
-//    for (int i = 0; i < 24; i++) {
-//         printf("%lf|  ",&qvertexes[i]);
-//    }
-//    printf("c_f%u", qcount_facets);
-//    printf("c_v%u", qcount_vert);
-    }
-    i++;
-    qcount_vert = 4;
-    qcount_facets = 12;
+//    qcount_vert = 4;
+//    qcount_facets = 12;
+
+
+
     glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glFrustum(-1, 1, -1, 1, 1, 1000000);
+
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
-    glVertexPointer(3, GL_DOUBLE, 0, &arr);  // берет каждые три точки под вершины из масива
+    glVertexPointer(3, GL_DOUBLE, 0, qvertexes);  // берет каждые три точки под вершины из масива
     glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
-    glDrawElements(GL_LINES, qcount_facets, GL_UNSIGNED_INT, &mass); // рисуем не зависмыми линиями
+    glDrawElements(GL_LINES, qcount_facets, GL_UNSIGNED_INT, qfacets); // рисуем не зависмыми линиями
     glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
 
-    glBegin(GL_LINE);
-        ::line_color(l_c);
-        ::line_style(l_s);
-        glLineWidth(l_w); // size line
-//        glDisable(GL_LINE_STIPPLE); // сброс настроек точек
-    glEnd();
 
-    glBegin(GL_POINT);
-        ::vertex_color(v_c);
-        if (v_s != 0) {
-            glPointSize(v_w);  // size point
-            glDrawArrays(GL_POINTS, 0, qcount_vert);
-        }
-        ::veretex_stile(v_s);
-        glDisableClientState(GL_VERTEX_ARRAY);
-    glEnd();
+    ::line_color(l_c);
+    ::line_style(l_s);
+    glLineWidth(l_w); // size line
+
+
+
+    ::vertex_color(v_c);
+    if (v_s != 0) {
+        glPointSize(v_w);  // size point
+        glDrawArrays(GL_POINTS, 0, qcount_vert);
+    }
+    ::veretex_stile(v_s);
+
 
     glRotatef(xRot, 1, 0, 0);// для движения мышью
     glRotatef(yRot, 0, 1, 0);
     glRotatef(zRot, 0, 0, 1);
 
     saveSetting();
-    update();
 
 }
 

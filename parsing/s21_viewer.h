@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+//#include <../3DWieve/scene.h>
 
 typedef struct DATA {
     unsigned int count_vert; // количество v
@@ -11,6 +12,7 @@ typedef struct DATA {
     double *vertexes; // хранятся в, цифры
     unsigned int *facets; // массив, в нем полигоны, эфки 122331
 } data_t;
+
 
 ////parser
 //unsigned int index_f;
