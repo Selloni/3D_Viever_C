@@ -26,19 +26,6 @@
     <property name="styleSheet">
      <string notr="true"/>
     </property>
-    <widget class="QPushButton" name="open_file">
-     <property name="geometry">
-      <rect>
-       <x>690</x>
-       <y>620</y>
-       <width>100</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Open file</string>
-     </property>
-    </widget>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">

@@ -34,19 +34,20 @@ private slots:
     void resizeGL( int w, int h) override;  //  когда изменяеться размер окна
     void paintGL() override;  // нужно перерасовть окно
 
-    void line_color(int l_c);
-    void line_style(int l_s);
-    void vertex_color(int w_c);
-    void veretex_stile(int v_s);
-    void loadSetting();
+//    void line_color(int l_c);
+//    void line_style(int l_s);
+//    void vertex_color(int w_c);
+//    void veretex_stile(int v_s);
+//    void loadSetting();
 
-    void projection(int proj);
+//    void projection(int proj);
+//    void draw();
 
 public:
-    void read_file(QString qpath_file);
+    void read_file(char *path_file);
 
 //    int i=0 ;
-    void saveSetting();
+//    void saveSetting();
 
     Scene(QWidget *parent = 0);
 

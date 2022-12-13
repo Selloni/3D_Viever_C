@@ -39,6 +39,8 @@ void MainWindow::on_pushButton_clicked()
 
     QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
     char *path_file = ba.data();
+
+    ui->sceneWidget->read_file(path_file);
 //    printf("%s", path_file);
 //    int err_flag = 1;
 //    err_flag = s21_count_v_f(path_file, &obj);
@@ -91,9 +93,8 @@ void MainWindow::on_line_solid_clicked()
 
 void MainWindow::on_line_dashed_clicked()
 {
-//    ui->sceneWidget->l_s = 0;
-
-    ui->sceneWidget->read_file(QString("/Users/grandpat/3D_Viever_C/obj/cub.obj"));
+    ui->sceneWidget->l_s = 0;
+//    ui->sceneWidget->update();
 }
 
 void MainWindow::on_line_width_valueChanged(int value)
