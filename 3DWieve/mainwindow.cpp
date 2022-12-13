@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <iostream>
+#include <QMessageBox>
+
 /////// вопрос с цветом и с выводом фигруы и как что то сделать перед тем как запуститсья прогармма
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -27,17 +29,25 @@ void MainWindow::on_pushButton_clicked()
 
     setlocale(LC_ALL, "en_US.UTF-8");
 
-    unsigned int index_f = 0;
-    unsigned int index_v = 0;
-    data_t obj;
-    QString qpath_file = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
-    qpath_file = QFileDialog::getOpenFileName(this, "выберите файл","All Files (*.obj)");
+//    unsigned int index_f = 0;
+//    unsigned int index_v = 0;
+//    data_t obj;
+//    QString qpath_file = "~/3D_Viever_C/obj/cub.obj";
+    QString qpath_file = QFileDialog::getOpenFileName(this, "select a file","All Files (*.obj)");
+
+//    ui->sceneWidget->path_file = qpath_file;
 
     QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
     char *path_file = ba.data();
-    int err_flag = 1;
-    err_flag = s21_count_v_f(path_file, &obj);
-    s21_read(path_file, &obj, index_f, index_v);
+//    printf("%s", path_file);
+//    int err_flag = 1;
+//    err_flag = s21_count_v_f(path_file, &obj);
+//    s21_read(path_file, &obj, index_f, index_v);
+//    if (err_flag) {
+//        QMessageBox msgBox;
+//        msgBox.setText("The file was not considered");
+//        msgBox.exec();
+//    }
 
 //        for (int i = 0; i < 72; i++) {
 //            printf("%u ",obj.facets[i]);
@@ -46,13 +56,19 @@ void MainWindow::on_pushButton_clicked()
 //        for (int i = 0; i < 24; i++) {
 //             printf("%lf|  ",obj.vertexes[i]);
 //        }
-      ui->sceneWidget->file = qpath_file;
-    ui->sceneWidget->qcount_vert = obj.count_vert;
-    ui->sceneWidget->qcount_facets = obj.count_facets;
-    ui->sceneWidget->qvertexes = obj.vertexes;
-    ui->sceneWidget->qfacets = obj.facets;
 
-    std::cout<<ui->sceneWidget->qcount_facets;
+//    ui->sceneWidget->obj_scene->facets = obj.facets;
+//    ui->sceneWidget->obj_scene->vertexes = obj.vertexes;
+//    ui->sceneWidget->obj_scene->count_facets = obj.count_facets;
+//    ui->sceneWidget->obj_scene->count_vert = obj.count_vert;
+//    ui->sceneWidget->file = qpath_file;
+//    ui->sceneWidget->qcount_vert = obj.count_vert;
+//    ui->sceneWidget->qcount_facets = obj.count_facets;
+//    ui->sceneWidget->qvertexes = obj.vertexes;
+//    ui->sceneWidget->qfacets = obj.facets;
+
+//    std::cout<<ui->sceneWidget->qcount_facets;
+
 //    for (int i = 0; i < 72; i++) {
 //        printf("%u ",scene.qfacets[i]);
 //    }
@@ -60,9 +76,7 @@ void MainWindow::on_pushButton_clicked()
 //    for (int i = 0; i < 24; i++) {
 //         printf("%lf|  ",scene.qvertexes[i]);
 //    }
-    free(obj.vertexes);
-    free(obj.facets);
-    ui->sceneWidget->update();
+//    ui->sceneWidget->update();
 }
 
 void MainWindow::on_line_color_activated(int index)
@@ -77,7 +91,9 @@ void MainWindow::on_line_solid_clicked()
 
 void MainWindow::on_line_dashed_clicked()
 {
-    ui->sceneWidget->l_s = 0;
+//    ui->sceneWidget->l_s = 0;
+
+    ui->sceneWidget->read_file(QString("/Users/grandpat/3D_Viever_C/obj/cub.obj"));
 }
 
 void MainWindow::on_line_width_valueChanged(int value)

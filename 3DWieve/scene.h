@@ -5,21 +5,25 @@
 #include <QtOpenGL>
 #include <QOpenGLWidget>
 #include <QOpenGLShaderProgram>
+#include <QMessageBox>
+
+#define GL_SILENCE_DEPRECATION
 
 extern "C" {
     #include "../parsing/s21_viewer.h"
 }
 
-typedef struct DATA1{
-    unsigned int count_vert; // количество v
-    unsigned int count_facets; // количество f
-    double *vertexes; // хранятся в, цифры
-    unsigned int *facets; // массив, в нем полигоны, эфки 122331
-} data_t2;
+//typedef struct DATA_QT {
+//    unsigned int count_vert; // количество v
+//    unsigned int count_facets; // количество f
+//    double *vertexes; // хранятся в, цифры
+//    unsigned int *facets; // массив, в нем полигоны, эфки 122331
+//} data_qt;
 
 class Scene: public QOpenGLWidget
 {
 private slots:
+
     QSettings *settings;
     float xRot, yRot, zRot;
     QPoint mPos;
@@ -27,7 +31,7 @@ private slots:
     void mouseMoveEvent(QMouseEvent*) override; // move mouse
 
     void initializeGL() override;  // вызываеться после вызова конструктора
-    void resizGL( int w, int h);  //  когда изменяеться размер окна
+    void resizeGL( int w, int h) override;  //  когда изменяеться размер окна
     void paintGL() override;  // нужно перерасовть окно
 
     void line_color(int l_c);
@@ -36,9 +40,12 @@ private slots:
     void veretex_stile(int v_s);
     void loadSetting();
 
-public:
+    void projection(int proj);
 
-    int i=0 ;
+public:
+    void read_file(QString qpath_file);
+
+//    int i=0 ;
     void saveSetting();
 
     Scene(QWidget *parent = 0);
@@ -52,7 +59,7 @@ public:
     int l_s = 1;  // style
     int l_w = 1; // width
 
-    data_t2 *obj;
+//    data_t *obj_scene;
 
     int yy = 0;
     int v_c = 0;
@@ -74,6 +81,7 @@ public:
     double moveZ = 0.0;
 
     int proj = 0;
+    QString path_file;
 
 };
 
