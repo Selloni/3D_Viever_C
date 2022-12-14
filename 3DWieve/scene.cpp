@@ -66,7 +66,8 @@ void Scene::resizeGL( int w, int h) {
 }
 
 void Scene::paintGL() {
-
+//        obj.count_vert = 4;
+//        obj.count_facets = 12;
     glClearColor(0, 1, 0,0);
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
@@ -84,7 +85,7 @@ void Scene::draw() {
     glPointSize(20);
 
     glDrawArrays(GL_POINTS, 0, obj.count_vert);
-    glDrawElements(GL_LINES, (obj.count_facets * 2), GL_UNSIGNED_INT, &obj.facets);
+    glDrawElements(GL_LINES, (obj.count_facets * 2), GL_UNSIGNED_INT, obj.facets);
     glLineStipple(1, 0x00FF);
 
 //    glDisable(GL_LINE_STIPPLE);
