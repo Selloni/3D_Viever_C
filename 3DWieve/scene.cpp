@@ -96,12 +96,11 @@ void Scene::paintGL() {
     glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glFrustum(-1, 1, -1, 1, 1, 1000000);
 
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
     glVertexPointer(3, GL_DOUBLE, 0, qvertexes);  // берет каждые три точки под вершины из масива
     glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
-    glDrawElements(GL_LINES, qcount_facets, GL_UNSIGNED_INT, qfacets); // рисуем не зависмыми линиями
+    glDrawElements(GL_LINES, qcount_facets * 2, GL_UNSIGNED_INT, qfacets); // рисуем не зависмыми линиями
     glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
 
 
