@@ -4,19 +4,23 @@
 //    data_t obj = {0};
 //    unsigned int index_f = 0;
 //    unsigned int index_v = 0;
-//    s21_count_v_f("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj);
-//    s21_read("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj, index_f, index_v);
-//    printf("c_f %u, c_v %u\n", obj.count_facets, obj.count_vert);
+
+//    char *str = "/Users/grandpat/3D_Viever_C/obj/car.obj";
+//     char *str2 = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
+//     s21_count_v_f(str, &obj);
+
+//     s21_read(str, &obj, index_f, index_v);
+//      printf("c_f %u, c_v %u\n", (obj.count_facets *2) , obj.count_vert);
 //     for (int i = 0; i < (obj.count_facets*2); i++) {
-//        printf("%u",obj.facets[i]);
+//        printf("%u|",obj.facets[i]);
 //        // printf("\n");
 //    }
 //    printf("\n");
-//    for (int i = 0; i < (obj.count_vert *3); i++) {
-//        printf("%lf| ",obj.vertexes[i]);
-//     //    printf("%u",obj.facets[i]);
-//     //    printf("\n");
-//    }
+// //    for (int i = 0; i < (obj.count_vert *3); i++) {
+// //        printf("%lf| ",obj.vertexes[i]);
+// //     //    printf("%u",obj.facets[i]);
+// //     //    printf("\n");
+// //    }
 //    free(obj.vertexes);
 //    free(obj.facets);
 //    return 0;
@@ -36,7 +40,9 @@ int s21_count_v_f(char* file_name, data_t *obj) { // открыли и посч�
                 obj->count_vert++;
             }
             else if (ch[0] == 'f' && ch[1] == ' ') { // facets
+
                 obj->count_facets += s21_space_for_Fsupp(ch);
+
             }
         }
         fclose(text);
@@ -48,9 +54,8 @@ int s21_count_v_f(char* file_name, data_t *obj) { // открыли и посч�
 }
 
 int s21_space_for_Fsupp(char *ch) {
-    int i = 3;
+    int i = 2;
     int space_count = 1;
-    
     while(ch[i] != '\n' && ch[i] != EOF) {
         if (ch[i] == ' ') {
             space_count++;
@@ -64,7 +69,7 @@ void s21_read(char* file_name, data_t *obj, unsigned int index_f, unsigned int i
     FILE *text;
     char* ch = malloc(sizeof(char) * 255);
     obj->vertexes = malloc((obj->count_vert * 3 * sizeof(double) + 1));
-    obj->facets = malloc((obj->count_facets * 6 * sizeof(unsigned int) + 1));
+    obj->facets = malloc((obj->count_facets * 2 * sizeof(unsigned int) + 1));
 
         if ((text = fopen(file_name, "r")) != NULL) {
             while((fgets(ch, 255, text)) != NULL) { // считываем построчно
@@ -86,13 +91,14 @@ unsigned int s21_Fconnect(data_t *obj, char *ch, unsigned int  index_f) {
     
     int closure_val = '\0'; // для замыкания полигона
     int i_flag = 0; // порядковый номер записанного числа
+    
     for (unsigned int i = 0; i < strlen(ch); i++) {
         long int val = 0; // для дублирования чисел
         if (ch[i] == ' ' && s21_digit_supp(ch[++i])) {
             ++i_flag;
             char str[10] = {'\0'};
+            int j = 0;
             while (s21_digit_supp(ch[i])) {
-                int j = 0;
                 str[j] = ch[i];
                 i++;
                 j++;
