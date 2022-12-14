@@ -6,15 +6,17 @@
 //    unsigned int index_v = 0;
 //    s21_count_v_f("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj);
 //    s21_read("/Users/grandpat/3D_Viever_C/obj/cub.obj", &obj, index_f, index_v);
-// //     for (int i = 0; i < 24; i++) {
-// //     //    printf("%u",obj.facets[i]);
-// //        // printf("\n");
-// //    }
-// //    for (int i = 0; i < 24; i++) {
-// //        printf("%lf| ",obj.vertexes[i]);
-// //     //    printf("%u",obj.facets[i]);
-// //        // printf("\n");
-// //    }
+//    printf("c_f %u, c_v %u\n", obj.count_facets, obj.count_vert);
+//     for (int i = 0; i < (obj.count_facets*2); i++) {
+//        printf("%u",obj.facets[i]);
+//        // printf("\n");
+//    }
+//    printf("\n");
+//    for (int i = 0; i < (obj.count_vert *3); i++) {
+//        printf("%lf| ",obj.vertexes[i]);
+//     //    printf("%u",obj.facets[i]);
+//     //    printf("\n");
+//    }
 //    free(obj.vertexes);
 //    free(obj.facets);
 //    return 0;
@@ -96,8 +98,8 @@ unsigned int s21_Fconnect(data_t *obj, char *ch, unsigned int  index_f) {
                 j++;
             }
             char * pEnd;
-            val = strtol(str, &pEnd, 10);
-            (*obj).facets[index_f] = val - 1;
+            val = strtol(str, &pEnd, 10) - 1;
+            (*obj).facets[index_f] = val;
 
             if (i_flag == 1) {
                 // printf("end%d|", index_f);

@@ -41,7 +41,7 @@ private slots:
 //    void loadSetting();
 
 //    void projection(int proj);
-//    void draw();
+    void draw();
 
 public:
     void read_file(char *path_file);

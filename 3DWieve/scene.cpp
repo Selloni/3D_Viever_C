@@ -37,13 +37,14 @@ void Scene::read_file(char *path_file) {
      std::cout << "c_v|" << obj.count_vert << "|";
 //     std::cout << "|v_v|" << obj.vertexes[1] << "||";
 //     std::cout << "|f_f|" << obj.facets[1] << "||";
-     for (int i = 0; i < 24; i++) {
-         std::cout << "v|" << obj.vertexes[i];
-     }
+//     for (int i = 0; i < 24; i++) {
+//         std::cout << "v|" << obj.vertexes[i];
+//     }
       printf("\n");
-     for (int i = 0; i < 72; i++) {
-          std::cout << "f|" << obj.facets[i];
+     for (int i = 0; i < obj.count_facets * 2; i++) {
+          std::cout <<  obj.facets[i];
      }
+     printf("\n");
 //     update();
 //    free(obj.vertexes);
 //    free(obj.facets);
@@ -52,16 +53,53 @@ void Scene::read_file(char *path_file) {
 
 void Scene::initializeGL() {
 //    setlocale(LC_ALL, "en_US.UTF-8");
-    glScalef(0.4, 0.4, 0.4);  // для маштаба
+//    glScalef(0.4, 0.4, 0.4);  // для маштаба
     glEnable(GL_DEPTH_TEST); // буфер глубины
 }
 
 void Scene::resizeGL( int w, int h) {
     // Set Viewport to window dimensions
-
+    glMatrixMode(GL_PROJECTION);
     glViewport( 0, 0, w, h );
     glFrustum(-1, 1, -1, 1, 1, 100);
 //    projection(proj);
+}
+
+void Scene::paintGL() {
+
+    glClearColor(0, 1, 0,0);
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glTranslatef(0, 0, -2);
+    glRotatef(xRot, 1, 0, 0);// для движения мышью
+    glRotatef(yRot, 0, 1, 0);
+//    glRotatef(zRot, 0, 0, 1);
+    draw();
+}
+
+void Scene::draw() {
+    glVertexPointer(3, GL_DOUBLE, 0, obj.vertexes);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glPointSize(20);
+
+    glDrawArrays(GL_POINTS, 0, obj.count_vert);
+    glDrawElements(GL_LINES, (obj.count_facets * 2), GL_UNSIGNED_INT, &obj.facets);
+    glLineStipple(1, 0x00FF);
+
+//    glDisable(GL_LINE_STIPPLE);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+}
+
+void Scene::mousePressEvent(QMouseEvent* mo) {
+    mPos = mo->pos();
+}
+
+void Scene::mouseMoveEvent(QMouseEvent* mo) {
+    xRot = 0.6/M_PI*(mo->pos().y() - mPos.y());
+    yRot = 0.6/M_PI*(mo->pos().x() - mPos.x());
+    update(); //обовление кординат
 }
 
 //void Scene::paintGL() {
@@ -107,29 +145,6 @@ void Scene::resizeGL( int w, int h) {
 //}
 
 
-void Scene::paintGL() {
-
-    glClearColor(0, 1, 0,0);
-     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-     glMatrixMode(GL_MODELVIEW);
-     glLoadIdentity();
-     glVertexPointer(3, GL_DOUBLE, 0, obj.vertexes);
-     glEnableClientState(GL_VERTEX_ARRAY);
-     glPointSize(40);
-     glDrawArrays(GL_POINTS, 0, obj.count_vert);
-     glDisableClientState(GL_VERTEX_ARRAY);
-
-     glDrawElements(GL_LINES, obj.count_facets, GL_UNSIGNED_INT, &obj.facets);
-
-
-}
-
-//void Scene::draw();
-//    glVertexPointer(3, GL_DOUBLE, 0, &obj.vertexes);
-//    glEnableClientState(GL_VERTEX_ARRAY);
-
-//    glDrawArrays(GL_POINTS, 0, obj.count_vert);
-//    glDisableClientState(GL_VERTEX_ARRAY);
 
 //void Scene::saveSetting()
 //{
@@ -152,15 +167,7 @@ void Scene::paintGL() {
 //    v_w = settings->value("v_w", v_w).toInt();
 //}
 
-void Scene::mousePressEvent(QMouseEvent* mo) {
-    mPos = mo->pos();
 
-}
-void Scene::mouseMoveEvent(QMouseEvent* mo) {
-    xRot = 0.006/M_PI*(mo->pos().y() - mPos.y());
-    yRot = 0.006/M_PI*(mo->pos().x() - mPos.x());
-    update(); //обовление кординат
-}
 
 
 //void Scene::line_color(int l_c) {
