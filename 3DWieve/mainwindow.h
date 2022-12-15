@@ -63,6 +63,10 @@ private slots:
 
     void on_actioninfo_triggered();
 
+    void on_setting_scale_valueChanged(double arg1);
+
+    void on_but_scale_clicked();
+
 private:
     Ui::MainWindow *ui;
     Scene scene;

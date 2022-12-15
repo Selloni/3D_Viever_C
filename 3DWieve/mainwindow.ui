@@ -388,16 +388,16 @@
      <number>1</number>
     </property>
     <property name="minimum">
-     <double>0.000000000000000</double>
+     <double>-10.000000000000000</double>
     </property>
     <property name="maximum">
-     <double>1.000000000000000</double>
+     <double>10.000000000000000</double>
     </property>
     <property name="singleStep">
      <double>0.100000000000000</double>
     </property>
     <property name="value">
-     <double>0.600000000000000</double>
+     <double>0.000000000000000</double>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
@@ -412,6 +412,9 @@
     <property name="decimals">
      <number>1</number>
     </property>
+    <property name="minimum">
+     <double>-100.000000000000000</double>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
     <property name="geometry">
@@ -424,6 +427,9 @@
     </property>
     <property name="decimals">
      <number>1</number>
+    </property>
+    <property name="minimum">
+     <double>-100.000000000000000</double>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
@@ -438,6 +444,9 @@
     <property name="decimals">
      <number>1</number>
     </property>
+    <property name="minimum">
+     <double>-100.000000000000000</double>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="rotetaY">
     <property name="geometry">
@@ -451,14 +460,17 @@
     <property name="decimals">
      <number>1</number>
     </property>
+    <property name="minimum">
+     <double>-10.000000000000000</double>
+    </property>
     <property name="maximum">
-     <double>1.000000000000000</double>
+     <double>10.000000000000000</double>
     </property>
     <property name="singleStep">
      <double>0.100000000000000</double>
     </property>
     <property name="value">
-     <double>0.600000000000000</double>
+     <double>0.000000000000000</double>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="rotateZ">
@@ -473,14 +485,55 @@
     <property name="decimals">
      <number>1</number>
     </property>
+    <property name="minimum">
+     <double>-10.000000000000000</double>
+    </property>
     <property name="maximum">
-     <double>1.000000000000000</double>
+     <double>10.000000000000000</double>
     </property>
     <property name="singleStep">
      <double>0.100000000000000</double>
     </property>
     <property name="value">
-     <double>0.600000000000000</double>
+     <double>0.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="setting_scale">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>700</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="decimals">
+     <number>1</number>
+    </property>
+    <property name="minimum">
+     <double>0.100000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>2.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>0.100000000000000</double>
+    </property>
+    <property name="value">
+     <double>1.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="but_scale">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>700</y>
+      <width>51</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SCALE</string>
     </property>
    </widget>
   </widget>

@@ -18,8 +18,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-//    scene.saveSetting();
-
 }
 
 
@@ -32,7 +30,6 @@ void MainWindow::on_pushButton_clicked()
 
     ui->sceneWidget->read_file(path_file);
 //    ui->sceneWidget->update();
-
 }
 
 void MainWindow::on_line_color_activated(int index)
@@ -48,7 +45,7 @@ void MainWindow::on_line_solid_clicked()
 void MainWindow::on_line_dashed_clicked()
 {
     ui->sceneWidget->l_s = 0;
-//    ui->sceneWidget->update();
+    ui->sceneWidget->update();
 }
 
 void MainWindow::on_line_width_valueChanged(int value)
@@ -98,41 +95,61 @@ void MainWindow::on_background_clicked()
 
 void MainWindow::on_rotateX_valueChanged(double arg1)
 {
-    scene.rotX = arg1;
+    s21_rotate(&ui->sceneWidget->qvertexes, 'x', arg1, ui->sceneWidget->qcount_vert);
+    ui->sceneWidget->update();
 }
 
 
 void MainWindow::on_rotetaY_valueChanged(double arg1)
 {
-    scene.rotY = arg1;
+    s21_rotate(&ui->sceneWidget->qvertexes, 'y', arg1, ui->sceneWidget->qcount_vert);
+    ui->sceneWidget->update();
 }
 
 
 void MainWindow::on_rotateZ_valueChanged(double arg1)
 {
-    scene.rotZ = arg1;
+    s21_rotate(&ui->sceneWidget->qvertexes, 'z', arg1, ui->sceneWidget->qcount_vert);
+    ui->sceneWidget->update();
 }
 
 
 void MainWindow::on_doubleSpinBox_6_valueChanged(double arg1)
 {
-    scene.moveX = arg1;
+    s21_moveX(&ui->sceneWidget->qvertexes, arg1, ui->sceneWidget->qcount_vert);
+    ui->sceneWidget->update();
 }
 
 
 void MainWindow::on_doubleSpinBox_5_valueChanged(double arg1)
 {
-    scene.moveY = arg1;
+    s21_moveY(&ui->sceneWidget->qvertexes, arg1, ui->sceneWidget->qcount_vert);
+    ui->sceneWidget->update();;
 }
 
 
 void MainWindow::on_doubleSpinBox_4_valueChanged(double arg1)
 {
-    scene.moveZ = arg1;
+    s21_moveZ(&ui->sceneWidget->qvertexes, arg1, ui->sceneWidget->qcount_vert);
+    ui->sceneWidget->update();
 }
 
 void MainWindow::on_actioninfo_triggered()
 {
 
+}
+
+double tmp = 1;
+void MainWindow::on_setting_scale_valueChanged(double arg1)
+{
+    tmp = arg1;
+}
+
+
+
+void MainWindow::on_but_scale_clicked()
+{
+    s21_scale(&ui->sceneWidget->qvertexes, tmp, ui->sceneWidget->qcount_vert);
+    ui->sceneWidget->update();
 }
 

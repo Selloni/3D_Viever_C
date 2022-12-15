@@ -11,32 +11,35 @@ Scene::Scene(QWidget *parent):
 //     loadSetting();
 }
 
-data_t obj;
+data_t obj = {'\0'};
 double arr[] = {0,0,0, -1,0,-1, 0,1,0, 1,0,0}; // масив вершин
 unsigned int mass[] = {1,0, 1,2, 1,3, 2,3, 2,4, 3,4 };  // масив соединений
 
 void Scene::read_file(char *path_file) {
 
     int err_flag = 1;
-    printf("%s", path_file);
+//    printf("%s", path_file);
 
     err_flag = s21_count_v_f(path_file, &obj);
     if (err_flag) {
         QMessageBox msgBox;
         msgBox.setText("The file was not considered");
         msgBox.exec();
+        free(obj.facets);
+        free(obj.vertexes);
     } else {
         s21_read(path_file, &obj);
+        qcount_facets = obj.count_facets;
+        qcount_vert = obj.count_vert;
+        qvertexes = obj.vertexes;
+        qfacets = obj.facets;
     }
-
-//     update();
-
 }
 
 
 void Scene::initializeGL() {
 //    setlocale(LC_ALL, "en_US.UTF-8");
-    glScalef(0.4, 0.4, 0.4);  // для маштаба
+//    glScalef(0.4, 0.4, 0.4);  // для маштаба
     glEnable(GL_DEPTH_TEST); // буфер глубины
 }
 
@@ -44,18 +47,18 @@ void Scene::resizeGL( int w, int h) {
     // Set Viewport to window dimensions
     glMatrixMode(GL_PROJECTION);
     glViewport( 0, 0, w, h );
-    glFrustum(-1, 1, -1, 1, 1, 100);
+    glFrustum(-1, 1, -1, 1, 1, 10000);
 //    projection(proj);
 }
 
 void Scene::paintGL() {
 //        obj.count_vert = 4;
 //        obj.count_facets = 12;
-    glClearColor(0, 1, 0,0);
+    glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef(0, 0, -2);
+    glTranslatef(0, 0, -9);
     glRotatef(xRot, 1, 0, 0);// для движения мышью
     glRotatef(yRot, 0, 1, 0);
 //    glRotatef(zRot, 0, 0, 1);
@@ -63,12 +66,12 @@ void Scene::paintGL() {
 }
 
 void Scene::draw() {
-    glVertexPointer(3, GL_DOUBLE, 0, obj.vertexes);
+    glVertexPointer(3, GL_DOUBLE, 0, qvertexes);
     glEnableClientState(GL_VERTEX_ARRAY);
     glPointSize(20);
 
-    glDrawArrays(GL_POINTS, 0, obj.count_vert);
-    glDrawElements(GL_LINES, (obj.count_facets * 2), GL_UNSIGNED_INT, obj.facets);
+    glDrawArrays(GL_POINTS, 0, qcount_vert);
+    glDrawElements(GL_LINES, (qcount_facets * 2), GL_UNSIGNED_INT, qfacets);
     glLineStipple(1, 0x00FF);
 
     glDisable(GL_LINE_STIPPLE);
