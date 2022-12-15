@@ -60,9 +60,8 @@ public:
     int l_s = 1;  // style
     int l_w = 1; // width
 
-//    data_t *obj_scene;
+    data_t obj;
 
-    int yy = 0;
     int v_c = 0;
     int v_s = 0;
     int v_w = 1;
