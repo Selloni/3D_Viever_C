@@ -60,7 +60,7 @@ public:
     int l_s = 1;  // style
     int l_w = 1; // width
 
-    data_t obj;
+//    data_t obj;
 
     int v_c = 0;
     int v_s = 0;

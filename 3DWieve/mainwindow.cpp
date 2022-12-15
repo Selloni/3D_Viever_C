@@ -13,8 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
     this->setFixedSize( this->size() );  //  не изменяемый размер окна
     ui->line_width->setRange(1, 40);
 
-
-
 }
 
 MainWindow::~MainWindow()
@@ -34,7 +32,6 @@ void MainWindow::on_pushButton_clicked()
 
     ui->sceneWidget->read_file(path_file);
 //    ui->sceneWidget->update();
-
 
 }
 

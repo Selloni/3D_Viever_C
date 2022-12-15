@@ -11,37 +11,24 @@ Scene::Scene(QWidget *parent):
 //     loadSetting();
 }
 
-//data_t obj;
+data_t obj;
 double arr[] = {0,0,0, -1,0,-1, 0,1,0, 1,0,0}; // масив вершин
 unsigned int mass[] = {1,0, 1,2, 1,3, 2,3, 2,4, 3,4 };  // масив соединений
 
 void Scene::read_file(char *path_file) {
 
-//    free(obj.vertexes);
-//    free(obj.facets);
-
-
-//    qpath_file = QString("/Users/grandpat/3D_Viever_C/obj/cub.obj");
-
-
     int err_flag = 1;
     printf("%s", path_file);
 
     err_flag = s21_count_v_f(path_file, &obj);
-    s21_read(path_file, &obj);
     if (err_flag) {
         QMessageBox msgBox;
         msgBox.setText("The file was not considered");
         msgBox.exec();
+    } else {
+        s21_read(path_file, &obj);
     }
-//     std::cout << "c_f|" << obj.count_facets << "|";
-//     std::cout << "c_v|" << obj.count_vert << "|";
 
-//      printf("\n");
-//     for (int i = 0; i < obj.count_facets * 2; i++) {
-//          std::cout << "|" << obj.facets[i];
-//     }
-//     printf("\n");
 //     update();
 
 }
