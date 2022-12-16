@@ -18,18 +18,22 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    ui->sceneWidget->free_mem();
 }
 
 
 void MainWindow::on_pushButton_clicked()
 {
-
-    QString qpath_file = QFileDialog::getOpenFileName(this, "select a file","All Files (*.obj)");
+    QString qpath_file = QFileDialog::getOpenFileName(0, "Open File .obj", "/Users/", "*.obj");
     QByteArray ba = qpath_file.toLocal8Bit(); // перевод из Qstring in *str
     char *path_file = ba.data();
+//    delete[] ui->sceneWidget->qfacets;
+//    delete[] ui->sceneWidget->qvertexes;
+//    ui->sceneWidget->qcount_facets = 0;
+//    ui->sceneWidget->qcount_vert = 0;
 
     ui->sceneWidget->read_file(path_file);
-//    ui->sceneWidget->update();
+
 }
 
 void MainWindow::on_line_color_activated(int index)
@@ -140,9 +144,11 @@ void MainWindow::on_actioninfo_triggered()
 }
 
 double tmp = 1;
+
 void MainWindow::on_setting_scale_valueChanged(double arg1)
 {
     tmp = arg1;
+    printf("%f\n", tmp);
 }
 
 
@@ -151,5 +157,6 @@ void MainWindow::on_but_scale_clicked()
 {
     s21_scale(&ui->sceneWidget->qvertexes, tmp, ui->sceneWidget->qcount_vert);
     ui->sceneWidget->update();
+    printf("c|%f|", tmp);
 }
 

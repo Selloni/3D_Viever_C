@@ -12,30 +12,54 @@ Scene::Scene(QWidget *parent):
 }
 
 data_t obj = {'\0'};
-double arr[] = {0,0,0, -1,0,-1, 0,1,0, 1,0,0}; // масив вершин
-unsigned int mass[] = {1,0, 1,2, 1,3, 2,3, 2,4, 3,4 };  // масив соединений
+//double arr[] = {0,0,0, -1,0,-1, 0,1,0, 1,0,0}; // масив вершин
+//unsigned int mass[] = {1,0, 1,2, 1,3, 2,3, 2,4, 3,4 };  // масив соединений
+
+void Scene::free_mem() {
+    if (obj.facets != NULL && obj.vertexes != NULL) {
+        free(obj.facets);
+        free(obj.vertexes);
+        obj.facets = 0;
+        obj.vertexes = 0;
+        obj.count_facets = 0;
+        obj.count_vert = 0;
+//        qcount_facets = 0;
+//        qcount_vert = 0;
+//        qvertexes = 0;
+//        qfacets = 0;
+    }
+}
 
 void Scene::read_file(char *path_file) {
-
+    if (obj.facets != NULL && obj.vertexes != NULL) {
+        free(obj.facets);
+        free(obj.vertexes);
+        obj.facets = 0;
+        obj.vertexes = 0;
+        obj.count_facets = 0;
+        obj.count_vert = 0;
+//        qcount_facets = 0;
+//        qcount_vert = 0;
+//        qvertexes = 0;
+//        qfacets = 0;
+    }
     int err_flag = 1;
-//    printf("%s", path_file);
 
     err_flag = s21_count_v_f(path_file, &obj);
     if (err_flag) {
         QMessageBox msgBox;
         msgBox.setText("The file was not considered");
         msgBox.exec();
-        free(obj.facets);
-        free(obj.vertexes);
+//        free(obj.facets);
+//        free(obj.vertexes);
     } else {
         s21_read(path_file, &obj);
-        qcount_facets = obj.count_facets;
-        qcount_vert = obj.count_vert;
-        qvertexes = obj.vertexes;
-        qfacets = obj.facets;
+//        qcount_facets = obj.count_facets;
+//        qcount_vert = obj.count_vert;
+//        qvertexes = obj.vertexes;
+//        qfacets = obj.facets;
     }
 }
-
 
 void Scene::initializeGL() {
 //    setlocale(LC_ALL, "en_US.UTF-8");
@@ -47,62 +71,24 @@ void Scene::resizeGL( int w, int h) {
     // Set Viewport to window dimensions
     glMatrixMode(GL_PROJECTION);
     glViewport( 0, 0, w, h );
-    glFrustum(-1, 1, -1, 1, 1, 10000);
+    glFrustum(-1, 1, -1, 1, 1, 99999);
 //    projection(proj);
-}
-
-void Scene::paintGL() {
-//        obj.count_vert = 4;
-//        obj.count_facets = 12;
-    glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glTranslatef(0, 0, -9);
-    glRotatef(xRot, 1, 0, 0);// для движения мышью
-    glRotatef(yRot, 0, 1, 0);
-//    glRotatef(zRot, 0, 0, 1);
-    draw();
-}
-
-void Scene::draw() {
-    glVertexPointer(3, GL_DOUBLE, 0, qvertexes);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glPointSize(20);
-
-    glDrawArrays(GL_POINTS, 0, qcount_vert);
-    glDrawElements(GL_LINES, (qcount_facets * 2), GL_UNSIGNED_INT, qfacets);
-    glLineStipple(1, 0x00FF);
-
-    glDisable(GL_LINE_STIPPLE);
-    glDisableClientState(GL_VERTEX_ARRAY);
-
-}
-
-void Scene::mousePressEvent(QMouseEvent* mo) {
-    mPos = mo->pos();
-}
-
-void Scene::mouseMoveEvent(QMouseEvent* mo) {
-    xRot = 0.6/M_PI*(mo->pos().y() - mPos.y());
-    yRot = 0.6/M_PI*(mo->pos().x() - mPos.x());
-    update(); //обовление кординат
 }
 
 //void Scene::paintGL() {
 
-////    glMatrixMode(GL_PROJECTION);
+//    glMatrixMode(GL_PROJECTION);
 
 //    glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
 //    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
 //    glMatrixMode(GL_MODELVIEW);
 //    glLoadIdentity();
-
+//    glTranslatef(0, 0, -9);
 //    glVertexPointer(3, GL_DOUBLE, 0, obj.vertexes);  // берет каждые три точки под вершины из масива
 
-////    glDrawArrays(GL_POINTS, 0, obj.count_vert);  // для отррисовки вершин
+//    glDrawArrays(GL_POINTS, 0, obj.count_vert);  // для отррисовки вершин
 
-////    glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
+//    glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
 //    glDrawElements(GL_LINES, (obj.count_facets * 2), GL_UNSIGNED_INT, obj.facets); // рисуем не зависмыми линиями
 //    //  разрешаем рисовать из масива вершин
 
@@ -118,17 +104,56 @@ void Scene::mouseMoveEvent(QMouseEvent* mo) {
 //        glDrawArrays(GL_POINTS, 0, obj.count_vert);
 //    }
 //    veretex_stile(v_s);
-//    glDisableClientState(GL_VERTEX_ARRAY);
+////    glDisableClientState(GL_VERTEX_ARRAY);
 
 //    glRotatef(xRot, 1, 0, 0);// для движения мышью
 //    glRotatef(yRot, 0, 1, 0);
 //    glRotatef(zRot, 0, 0, 1);
 ////    saveSetting();
-// //   update();
+//    update();
 
 //}
 
+void Scene::paintGL() {
+//        obj.count_vert = 4;
+//        obj.count_facets = 12;
+    if (obj.count_facets > 3){
+        glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
+        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        glTranslatef(0, 0, -9);
+        glRotatef(xRot, 1, 0, 0);// для движения мышью
+        glRotatef(yRot, 0, 1, 0);
+        glRotatef(zRot, 0, 0, 1);
+        draw();
+        update();
+    }
+}
+void Scene::draw() {
+    if (obj.count_facets > 3) {
+        glVertexPointer(3, GL_DOUBLE, 0, obj.vertexes);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glPointSize(20);
 
+        glDrawArrays(GL_POINTS, 0, obj.count_vert);
+        glDrawElements(GL_LINES, (obj.count_facets * 2), GL_UNSIGNED_INT, obj.facets);
+        glLineStipple(1, 0x00FF);
+
+        glDisable(GL_LINE_STIPPLE);
+        glDisableClientState(GL_VERTEX_ARRAY);
+    }
+}
+
+void Scene::mousePressEvent(QMouseEvent* mo) {
+    mPos = mo->pos();
+}
+
+void Scene::mouseMoveEvent(QMouseEvent* mo) {
+    xRot = 0.6/M_PI*(mo->pos().y() - mPos.y());
+    yRot = 0.6/M_PI*(mo->pos().x() - mPos.x());
+    update(); //обовление кординат
+}
 
 //void Scene::saveSetting()
 //{

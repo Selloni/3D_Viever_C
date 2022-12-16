@@ -44,6 +44,9 @@ private slots:
     void draw();
 
 public:
+
+
+    void free_mem();
     void read_file(char *path_file);
 
 //    int i=0 ;
