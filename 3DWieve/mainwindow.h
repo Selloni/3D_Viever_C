@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QColorDialog>
 #include <QSettings>
+#include <QMessageBox>
 
 #include "scene.h"
 

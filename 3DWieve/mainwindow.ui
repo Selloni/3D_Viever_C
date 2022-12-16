@@ -20,7 +20,7 @@
       <x>29</x>
       <y>19</y>
       <width>791</width>
-      <height>651</height>
+      <height>661</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -501,7 +501,7 @@
    <widget class="QDoubleSpinBox" name="setting_scale">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>770</x>
       <y>700</y>
       <width>51</width>
       <height>31</height>
@@ -526,7 +526,7 @@
    <widget class="QPushButton" name="but_scale">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>720</x>
       <y>700</y>
       <width>51</width>
       <height>31</height>
@@ -551,12 +551,13 @@
      <string>Tolls</string>
     </property>
     <addaction name="actioninfo"/>
+    <addaction name="separator"/>
    </widget>
    <addaction name="menuTolls"/>
   </widget>
   <action name="actioninfo">
    <property name="text">
-    <string>info</string>
+    <string>Info</string>
    </property>
   </action>
  </widget>

@@ -27,6 +27,7 @@ private slots:
     QSettings *settings;
     float xRot, yRot, zRot;
     QPoint mPos;
+
     void mousePressEvent(QMouseEvent*) override; // click mouse
     void mouseMoveEvent(QMouseEvent*) override; // move mouse
 
@@ -58,6 +59,8 @@ public:
     unsigned int qcount_facets = 0; // количество f
     double *qvertexes = 0; // хранятся в, цифры
     unsigned int *qfacets = 0; // массив, в нем полигоны, 122331
+
+    char *str;
 
     int l_c = 0;   // color
     int l_s = 1;  // style
