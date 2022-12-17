@@ -6,16 +6,7 @@ Scene::Scene(QWidget *parent):
     QOpenGLWidget (parent)
 
 {
-//     setlocale(LC_ALL, "en_US.UTF-8");
      settings = new QSettings (QDir::homePath() + "/save_config/settings.conf", QSettings::IniFormat);
-//     int l_c = 0;   // color
-//     int l_s = 1;  // style
-//     int l_w = 1; // width
-//     int v_c = 0;
-//     int v_s = 0;
-//     int v_w = 1;
-//     loadSetting();
-
 }
 
 data_t obj = {'\0'};

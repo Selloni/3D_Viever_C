@@ -9,8 +9,8 @@
 #include <QTimer>
 
 
-//#include "../GIFCreation/gifImage/qgifimage.h"
-#include "../QtGifImage/src/gifimage/qgifimage.h"
+#include "../GIFCreation/gifImage/qgifimage.h"
+//#include "../QtGifImage/src/gifimage/qgifimage.h"
 //#include "qgifimage.h"
 #include "scene.h"
 
@@ -92,9 +92,9 @@ private slots:
 
     void on_actionGif_2_triggered();
 
-//    void recording();
+    void recording();
 
-//    void saveGIF();
+    void saveGIF();
 
 private:
     Ui::MainWindow *ui;
