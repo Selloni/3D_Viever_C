@@ -68,6 +68,12 @@ private slots:
 
     void on_but_scale_clicked();
 
+    void on_actionSol_triggered();
+
+    void on_actionSave_settings_triggered();
+
+    void on_actionLoad_settings_triggered();
+
 private:
     Ui::MainWindow *ui;
     Scene scene;

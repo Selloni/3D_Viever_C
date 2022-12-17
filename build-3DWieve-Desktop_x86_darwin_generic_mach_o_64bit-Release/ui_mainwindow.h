@@ -10,11 +10,13 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
@@ -28,6 +30,7 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *actioninfo;
     QWidget *centralwidget;
     Scene *sceneWidget;
     QPushButton *pushButton;
@@ -58,13 +61,18 @@ public:
     QDoubleSpinBox *doubleSpinBox_6;
     QDoubleSpinBox *rotetaY;
     QDoubleSpinBox *rotateZ;
+    QDoubleSpinBox *setting_scale;
+    QPushButton *but_scale;
     QMenuBar *menubar;
+    QMenu *menuTolls;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(1141, 775);
+        actioninfo = new QAction(MainWindow);
+        actioninfo->setObjectName(QString::fromUtf8("actioninfo"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         sceneWidget = new Scene(centralwidget);
@@ -160,41 +168,62 @@ public:
         rotateX->setObjectName(QString::fromUtf8("rotateX"));
         rotateX->setGeometry(QRect(450, 700, 51, 31));
         rotateX->setDecimals(1);
-        rotateX->setMinimum(0.000000000000000);
-        rotateX->setMaximum(1.000000000000000);
+        rotateX->setMinimum(-10.000000000000000);
+        rotateX->setMaximum(10.000000000000000);
         rotateX->setSingleStep(0.100000000000000);
-        rotateX->setValue(0.600000000000000);
+        rotateX->setValue(0.000000000000000);
         doubleSpinBox_4 = new QDoubleSpinBox(centralwidget);
         doubleSpinBox_4->setObjectName(QString::fromUtf8("doubleSpinBox_4"));
         doubleSpinBox_4->setGeometry(QRect(340, 700, 51, 31));
         doubleSpinBox_4->setDecimals(1);
+        doubleSpinBox_4->setMinimum(-100.000000000000000);
         doubleSpinBox_5 = new QDoubleSpinBox(centralwidget);
         doubleSpinBox_5->setObjectName(QString::fromUtf8("doubleSpinBox_5"));
         doubleSpinBox_5->setGeometry(QRect(290, 700, 51, 31));
         doubleSpinBox_5->setDecimals(1);
+        doubleSpinBox_5->setMinimum(-100.000000000000000);
         doubleSpinBox_6 = new QDoubleSpinBox(centralwidget);
         doubleSpinBox_6->setObjectName(QString::fromUtf8("doubleSpinBox_6"));
         doubleSpinBox_6->setGeometry(QRect(240, 700, 51, 31));
         doubleSpinBox_6->setDecimals(1);
+        doubleSpinBox_6->setMinimum(-100.000000000000000);
         rotetaY = new QDoubleSpinBox(centralwidget);
         rotetaY->setObjectName(QString::fromUtf8("rotetaY"));
         rotetaY->setGeometry(QRect(500, 700, 51, 31));
         rotetaY->setDecimals(1);
-        rotetaY->setMaximum(1.000000000000000);
+        rotetaY->setMinimum(-10.000000000000000);
+        rotetaY->setMaximum(10.000000000000000);
         rotetaY->setSingleStep(0.100000000000000);
-        rotetaY->setValue(0.600000000000000);
+        rotetaY->setValue(0.000000000000000);
         rotateZ = new QDoubleSpinBox(centralwidget);
         rotateZ->setObjectName(QString::fromUtf8("rotateZ"));
         rotateZ->setGeometry(QRect(550, 700, 51, 31));
         rotateZ->setDecimals(1);
-        rotateZ->setMaximum(1.000000000000000);
+        rotateZ->setMinimum(-10.000000000000000);
+        rotateZ->setMaximum(10.000000000000000);
         rotateZ->setSingleStep(0.100000000000000);
-        rotateZ->setValue(0.600000000000000);
+        rotateZ->setValue(0.000000000000000);
+        setting_scale = new QDoubleSpinBox(centralwidget);
+        setting_scale->setObjectName(QString::fromUtf8("setting_scale"));
+        setting_scale->setGeometry(QRect(660, 700, 51, 31));
+        setting_scale->setDecimals(1);
+        setting_scale->setMinimum(0.100000000000000);
+        setting_scale->setMaximum(2.000000000000000);
+        setting_scale->setSingleStep(0.100000000000000);
+        setting_scale->setValue(1.000000000000000);
+        but_scale = new QPushButton(centralwidget);
+        but_scale->setObjectName(QString::fromUtf8("but_scale"));
+        but_scale->setGeometry(QRect(610, 700, 51, 31));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 1141, 24));
+        menuTolls = new QMenu(menubar);
+        menuTolls->setObjectName(QString::fromUtf8("menuTolls"));
         MainWindow->setMenuBar(menubar);
+
+        menubar->addAction(menuTolls->menuAction());
+        menuTolls->addAction(actioninfo);
 
         retranslateUi(MainWindow);
 
@@ -204,6 +233,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        actioninfo->setText(QCoreApplication::translate("MainWindow", "info", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "Open file", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "LINE SETTING", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "VERTEX SETTING", nullptr));
@@ -233,6 +263,8 @@ public:
         label_11->setText(QCoreApplication::translate("MainWindow", "MOVE", nullptr));
         vertex_circle->setText(QCoreApplication::translate("MainWindow", "circle", nullptr));
         background->setText(QCoreApplication::translate("MainWindow", "BACKGROUND SETTING", nullptr));
+        but_scale->setText(QCoreApplication::translate("MainWindow", "SCALE", nullptr));
+        menuTolls->setTitle(QCoreApplication::translate("MainWindow", "Tolls", nullptr));
     } // retranslateUi
 
 };

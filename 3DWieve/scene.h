@@ -39,19 +39,15 @@ private slots:
     void line_style(int l_s);
     void vertex_color(int w_c);
     void veretex_stile(int v_s);
-//    void loadSetting();
-
     void projection(int proj);
     void draw();
 
 public:
 
-
+    void saveSetting();
+    void loadSetting();
     void free_mem();
     void read_file(char *path_file);
-
-//    int i=0 ;
-//    void saveSetting();
 
     Scene(QWidget *parent = 0);
 
@@ -66,18 +62,17 @@ public:
     int l_s = 1;  // style
     int l_w = 1; // width
 
-//    data_t obj;
 
     int v_c = 0;
     int v_s = 0;
     int v_w = 1;
-//    QColor color;
+
     QString file;
     double back_red;
     double back_green;
     double back_blue;
     double back_alpha;
-//    unsigned int vertex;
+
     double rotX = 0.6;
     double rotY = 0.6;
     double rotZ = 0.6;

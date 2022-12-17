@@ -8,11 +8,11 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    setlocale(LC_ALL, "en_US.UTF-8");
+//    setlocale(LC_ALL, "en_US.UTF-8");
+    setWindowTitle("3DViewer");
     ui->setupUi(this);
     this->setFixedSize( this->size() );  //  не изменяемый размер окна
     ui->line_width->setRange(1, 40);
-
 }
 
 MainWindow::~MainWindow()
@@ -99,7 +99,7 @@ void MainWindow::on_background_clicked()
     ui->sceneWidget->back_green = color.green();
     ui->sceneWidget->back_blue = color.blue();
     ui->sceneWidget->back_alpha = color.alpha();
-//    ui->sceneWidget->update();
+    ui->sceneWidget->update();
 }
 
 void MainWindow::on_rotateX_valueChanged(double arg1)
@@ -143,18 +143,8 @@ void MainWindow::on_doubleSpinBox_4_valueChanged(double arg1)
     ui->sceneWidget->update();
 }
 
-void MainWindow::on_actioninfo_triggered()
-{
-    QString a = QString::number(ui->sceneWidget->qcount_vert);
-    QString b = QString::number(ui->sceneWidget->qcount_facets);
-    QString info = "Name: " + qpath_file + '\n' + "Vertex: " + a + '\n' + "Facets: " + b;
-
-    QMessageBox::information(this, tr("Info"), info);
-
-}
 
 double tmp = 1;
-
 void MainWindow::on_setting_scale_valueChanged(double arg1)
 {
     tmp = arg1;
@@ -165,6 +155,38 @@ void MainWindow::on_setting_scale_valueChanged(double arg1)
 void MainWindow::on_but_scale_clicked()
 {
     s21_scale(&ui->sceneWidget->qvertexes, tmp, ui->sceneWidget->qcount_vert);
+    ui->sceneWidget->update();
+}
+
+void MainWindow::on_actioninfo_triggered()
+{
+    QString a = QString::number(ui->sceneWidget->qcount_vert);
+    QString b = QString::number(ui->sceneWidget->qcount_facets);
+    QString info = "Name: " + qpath_file + '\n' + "Vertex: " + a + '\n' + "Facets: " + b + '\n' + "Authors: Alina and Yakov" ;
+
+    QMessageBox::information(this, tr("Info"), info);
+}
+
+void MainWindow::on_actionSol_triggered()
+{
+    if (ui->sceneWidget->proj) {
+        ui->sceneWidget->proj = 0;
+    } else {
+        ui->sceneWidget->proj = 1;
+    }
+    ui->sceneWidget->update();
+}
+
+
+void MainWindow::on_actionSave_settings_triggered()
+{
+    ui->sceneWidget->saveSetting();
+}
+
+
+void MainWindow::on_actionLoad_settings_triggered()
+{
+    ui->sceneWidget->loadSetting();
     ui->sceneWidget->update();
 }
 

@@ -2,14 +2,14 @@
 
 // int main() {
 //    data_t obj = {0};
-//    unsigned int index_f = 0;
-//    unsigned int index_v = 0;
+//    unint index_f = 0;
+//    unint index_v = 0;
 
 //    char *str = "/Users/grandpat/3D_Viever_C/obj/car.obj";
 //     char *str2 = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
 //     s21_count_v_f(str, &obj);
 
-//     s21_read(str, &obj, index_f, index_v);
+//     s21_read(str, &obj);
 //      printf("c_f %u, c_v %u\n", (obj.count_facets *2) , obj.count_vert);
 //     for (int i = 0; i < (obj.count_facets*2); i++) {
 //        printf("%u|",obj.facets[i]);
@@ -47,7 +47,7 @@ int s21_count_v_f(char* file_name, data_t *obj) { // открыли и посч�
         }
         fclose(text);
     }
-    if(obj->count_vert < 3) {
+    if (obj->count_vert < 3) {
         result = 1;
     }
     return result;
@@ -65,11 +65,15 @@ int s21_space_for_Fsupp(char *ch) {
     return space_count;
 }
 
-void s21_read(char* file_name, data_t *obj, unsigned int index_f, unsigned int index_v) {
+void s21_read(char* file_name, data_t *obj) {
     FILE *text;
+    unint index_v = 0;
+    unint index_f = 0;
+    free(obj->facets);
+    free(obj->vertexes);
     char* ch = malloc(sizeof(char) * 255);
     obj->vertexes = malloc((obj->count_vert * 3 * sizeof(double) + 1));
-    obj->facets = malloc((obj->count_facets * 2 * sizeof(unsigned int) + 1));
+    obj->facets = malloc((obj->count_facets * 2 * sizeof(unint) + 1));
 
         if ((text = fopen(file_name, "r")) != NULL) {
             while((fgets(ch, 255, text)) != NULL) { // считываем построчно
@@ -87,12 +91,12 @@ void s21_read(char* file_name, data_t *obj, unsigned int index_f, unsigned int i
     free(ch);
 }
 
-unsigned int s21_Fconnect(data_t *obj, char *ch, unsigned int  index_f) {
+unint s21_Fconnect(data_t *obj, char *ch, unint  index_f) {
     
     int closure_val = '\0'; // для замыкания полигона
     int i_flag = 0; // порядковый номер записанного числа
     
-    for (unsigned int i = 0; i < strlen(ch); i++) {
+    for (unint i = 0; i < strlen(ch); i++) {
         long int val = 0; // для дублирования чисел
         if (ch[i] == ' ' && s21_digit_supp(ch[++i])) {
             ++i_flag;
@@ -130,4 +134,74 @@ int s21_digit_supp(char ind) {
             result = 1;
             }
     return result;
+}
+
+void s21_rotate(double **vertex, char xyz, double angle, unint count_v) {
+    double temp_x = 0.0;
+    double temp_y = 0.0;
+    double temp_z = 0.0;
+    switch (xyz) {
+        case 'x':
+            for (unint i = 0; i < count_v * 3 ; i += 3) {
+                temp_x = (*vertex)[i];
+                temp_y = (*vertex)[i + 1];
+                temp_z = (*vertex)[i + 2];
+
+                (*vertex)[i] = temp_x;
+                (*vertex)[i + 1] = cos(angle) * temp_y - sin(angle) * temp_z;
+                (*vertex)[i + 2] = sin(angle) * temp_y + cos(angle) * temp_z;
+            }
+        break;
+        case 'y':
+        for (unint i = 0; i < count_v * 3 ; i += 3) {
+            temp_x = (*vertex)[i];
+            temp_y = (*vertex)[i + 1];
+            temp_z = (*vertex)[i + 2];
+
+            (*vertex)[i] = cos(angle) * temp_x + sin(angle) * temp_z;
+            (*vertex)[i + 1] = temp_y;
+            (*vertex)[i + 2] =
+                -sin(angle) * temp_x + cos(angle) * temp_z;
+        }
+        break;
+        case 'z':
+        for (unint i = 0; i < count_v * 3 ; i += 3) {
+            temp_x = (*vertex)[i];
+            temp_y = (*vertex)[i + 1];
+            temp_z = (*vertex)[i + 2];
+
+            (*vertex)[i] = cos(angle) * temp_x - sin(angle) * temp_y;
+            (*vertex)[i + 1] = sin(angle) * temp_x + cos(angle) * temp_y;
+            (*vertex)[i + 2] = temp_z;
+        }
+        break;
+    }
+}
+
+void s21_moveX(double **vertex, double move_x, unint count_v) {
+    double static diff = 0;
+    for (unint i = 0; i < count_v * 3; i+=3)
+        (*vertex)[i] += move_x - diff;
+    diff = move_x;
+}
+
+void s21_moveY(double **vertex, double move_y, unint count_v) {
+    double static diff = 0;
+    for (unint i = 1; i < count_v * 3; i+=3)
+        (*vertex)[i] += move_y - diff;
+    diff = move_y;
+}
+
+void s21_moveZ(double **vertex, double move_z, unint count_v) {
+    double static diff = 0;
+    for (unint i = 2; i < count_v * 3; i+=3)
+        (*vertex)[i] += move_z - diff;
+    diff = move_z;
+}
+
+void s21_scale(double **vertex, float scale, unint count_v) {
+    if (scale == 0.0) return;
+    for(unint i = 0; i < count_v * 3; ++i) {
+        (*vertex)[i] *= scale;
+    }
 }

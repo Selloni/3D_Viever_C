@@ -8,7 +8,14 @@ Scene::Scene(QWidget *parent):
 {
 //     setlocale(LC_ALL, "en_US.UTF-8");
      settings = new QSettings (QDir::homePath() + "/save_config/settings.conf", QSettings::IniFormat);
+//     int l_c = 0;   // color
+//     int l_s = 1;  // style
+//     int l_w = 1; // width
+//     int v_c = 0;
+//     int v_s = 0;
+//     int v_w = 1;
 //     loadSetting();
+
 }
 
 data_t obj = {'\0'};
@@ -45,8 +52,6 @@ void Scene::read_file(char *path_file) {
     }
     int err_flag = 1;
 //    int len = strlen(path_file);
-
-
 //    for (int i = 0; len > 1 ; --len) {
 //        if (path_file[len] != '/') {
 //            str[i] = path_file[len];
@@ -55,14 +60,11 @@ void Scene::read_file(char *path_file) {
 //            break;
 //        }
 //    }
-
     err_flag = s21_count_v_f(path_file, &obj);
     if (err_flag) {
         QMessageBox msgBox;
         msgBox.setText("The file was not considered");
         msgBox.exec();
-//        free(obj.facets);
-//        free(obj.vertexes);
     } else {
         s21_read(path_file, &obj);
         qcount_facets = obj.count_facets;
@@ -73,33 +75,31 @@ void Scene::read_file(char *path_file) {
 }
 
 void Scene::initializeGL() {
-//    setlocale(LC_ALL, "en_US.UTF-8");
-//    glScalef(0.4, 0.4, 0.4);  // для маштаба
     glEnable(GL_DEPTH_TEST); // буфер глубины
 }
 
 void Scene::resizeGL( int w, int h) {
     // Set Viewport to window dimensions
-//    glMatrixMode(GL_PROJECTION);
     glViewport( 0, 0, w, h );
-//    glFrustum(-1, 1, -1, 1, 1, 99999);
-    projection(proj);
 }
 
 void Scene::paintGL() {
+    projection(proj);
 //        obj.count_vert = 4;
 //        obj.count_facets = 12;
+    glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
     if (obj.count_facets > 3){
-        glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
-        glTranslatef(0, 0, -9);
+
+        glTranslatef(0, 0, -3);
         glRotatef(xRot, 1, 0, 0);// для движения мышью
         glRotatef(yRot, 0, 1, 0);
         glRotatef(zRot, 0, 0, 1);
         draw();
 //        update();
+//        saveSetting();
     }
 }
 void Scene::draw() {
@@ -119,43 +119,6 @@ void Scene::draw() {
         glDisableClientState(GL_VERTEX_ARRAY);
     }
 }
-
-
-//void Scene::paintGL() {
-//    glMatrixMode(GL_PROJECTION);
-//    glClearColor(back_red / 255.0f, back_green / 255.0f, back_blue / 255.0f, back_alpha / 255.0f);  //  colo bakcground
-//    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);  // очищаем буфера
-//    glMatrixMode(GL_MODELVIEW);
-//    glLoadIdentity();
-//    glTranslatef(0, 0, -9);
-//    glVertexPointer(3, GL_DOUBLE, 0, obj.vertexes);  // берет каждые три точки под вершины из масива
-//    glDrawArrays(GL_POINTS, 0, obj.count_vert);  // для отррисовки вершин
-//    glEnableClientState(GL_VERTEX_ARRAY);  //  разрешаем рисовать из масива вершин
-//    glDrawElements(GL_LINES, (obj.count_facets * 2), GL_UNSIGNED_INT, obj.facets); // рисуем не зависмыми линиями
-//    //  разрешаем рисовать из масива вершин
-
-
-//    line_color(l_c);
-//    line_style(l_s);
-//    glLineWidth(l_w); // size line
-
-
-//    vertex_color(v_c);
-//    if (v_s != 0) {
-//        glPointSize(v_w);  // size point
-//        glDrawArrays(GL_POINTS, 0, obj.count_vert);
-//    }
-//    veretex_stile(v_s);
-////    glDisableClientState(GL_VERTEX_ARRAY);
-
-//    glRotatef(xRot, 1, 0, 0);// для движения мышью
-//    glRotatef(yRot, 0, 1, 0);
-//    glRotatef(zRot, 0, 0, 1);
-////    saveSetting();
-//    update();
-
-//}
-
 
 void Scene::line_color(int l_c) {
     if (l_c == 0) {
@@ -208,11 +171,11 @@ void Scene::projection(int proj) {
     // Создаем проекцию
     glMatrixMode(GL_PROJECTION);  // ортоганальая поекция
     glLoadIdentity(); // загружаем матрицу
-    if (proj){
+    if (proj) {
         // Establish clipping volume (left, right, bottom, top, near, far)
-        glFrustum(-10, 10, -10, 10, 1, 100);  //  перспективная проекция
-    }else{
-        glOrtho(-10, 10, -10, 10, -10, 100);  // отоганальная
+        glFrustum(-1, 1, -1, 1, 1, 99999);  //  перспективная проекция
+    } else {
+        glOrtho(-1, 1, -1, 1, -1, 99999);  // отоганальная
     }
 }
 
@@ -226,23 +189,33 @@ void Scene::mouseMoveEvent(QMouseEvent* mo) {
     update(); //обовление кординат
 }
 
-//void Scene::saveSetting()
-//{
-//    settings->value("l_c", l_c);
-//    settings->value("l_s", l_s);
-//    settings->value("l_w", l_w);
-//    settings->value("v_c", v_c);
-//    settings->value("v_s", v_s);
-//    settings->value("v_w", v_w);
+void Scene::saveSetting()  {
+    settings->setValue("l_c", l_c);
+    settings->setValue("l_s", l_s);
+    settings->setValue("l_w", l_w);
+    settings->setValue("v_c", v_c);
+    settings->setValue("v_s", v_s);
+    settings->setValue("v_w", v_w);
+    settings->setValue("l_c", l_c);
+    settings->value("proj", proj).toInt();
+    settings->setValue("back_red",back_red);
+    settings->setValue("back_green",back_green);
+    settings->setValue("back_blue",back_blue);
+    settings->setValue("back_alpha",back_alpha);
 
-//}
+}
 
-//void Scene::loadSetting()
-//{
-//    l_c = settings->value("l_c", l_c).toInt();
-//    l_s = settings->value("l_s", l_s).toInt();
-//    l_s = settings->value("l_w", l_w).toInt();
-//    v_c = settings->value("v_c", v_c).toInt();
-//    v_s = settings->value("v_s", v_s).toInt();
-//    v_w = settings->value("v_w", v_w).toInt();
-//}
+void Scene::loadSetting()
+{
+    l_c = settings->value("l_c", 0).toInt();
+    l_s = settings->value("l_s", 0).toInt();
+    l_w = settings->value("l_w", 0).toInt();
+    v_c = settings->value("v_c", 0).toInt();
+    v_s = settings->value("v_s", 0).toInt();
+    v_w = settings->value("v_w", 0).toInt();
+    proj = settings->value("proj", proj).toInt();
+    back_red=settings->value("back_red",back_red).toFloat();
+    back_green=settings->value("back_green",back_green).toFloat();
+    back_blue=settings->value("back_blue",back_blue).toFloat();
+    back_alpha=settings->value("back_alpha",back_alpha).toFloat();
+}
