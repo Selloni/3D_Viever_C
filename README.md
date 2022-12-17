@@ -32,8 +32,8 @@ Go to src folder and type `make uninstall` or just delete app icon
 - Save the received ("rendered") images to a bmp and jpeg file.
 - Record the current user affine transformations of the uploaded object into a gif animation.
 
-![3DViewer](misc/1.jpeg)
+![3DViewer](misc/1.jpg)
 
-![3DViewer](misc/2.jpeg)
+![3DViewer](misc/2.jpg)
 
 ## Created and tested on MacOS by v3ssel and crackedg in 2022
