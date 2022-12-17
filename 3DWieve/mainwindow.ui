@@ -548,14 +548,23 @@
    </property>
    <widget class="QMenu" name="menuTolls">
     <property name="title">
-     <string>Tolls</string>
+     <string>☰</string>
     </property>
-    <addaction name="actioninfo"/>
+    <widget class="QMenu" name="menuSave_img">
+     <property name="title">
+      <string>Save img</string>
+     </property>
+     <addaction name="actionjpeg"/>
+     <addaction name="actionbmp"/>
+    </widget>
+    <addaction name="actionSol"/>
     <addaction name="separator"/>
     <addaction name="actionSave_settings"/>
     <addaction name="actionLoad_settings"/>
     <addaction name="separator"/>
-    <addaction name="actionSol"/>
+    <addaction name="menuSave_img"/>
+    <addaction name="actionGif_2"/>
+    <addaction name="actioninfo"/>
    </widget>
    <addaction name="menuTolls"/>
   </widget>
@@ -577,6 +586,26 @@
   <action name="actionLoad_settings">
    <property name="text">
     <string>Load settings</string>
+   </property>
+  </action>
+  <action name="actionJpeg">
+   <property name="text">
+    <string>Jpeg</string>
+   </property>
+  </action>
+  <action name="actionjpeg">
+   <property name="text">
+    <string>jpeg</string>
+   </property>
+  </action>
+  <action name="actionbmp">
+   <property name="text">
+    <string>bmp</string>
+   </property>
+  </action>
+  <action name="actionGif_2">
+   <property name="text">
+    <string>Gif</string>
    </property>
   </action>
  </widget>

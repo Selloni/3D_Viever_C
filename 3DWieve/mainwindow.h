@@ -6,7 +6,12 @@
 #include <QColorDialog>
 #include <QSettings>
 #include <QMessageBox>
+#include <QTimer>
 
+
+//#include "../GIFCreation/gifImage/qgifimage.h"
+#include "../QtGifImage/src/gifimage/qgifimage.h"
+//#include "qgifimage.h"
 #include "scene.h"
 
 
@@ -25,6 +30,13 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    float time;
+    QVector<QImage> GIF;
+    QTimer * record_time;
+    QString qpath_file;
+    bool is_recording;
+    double tmp = 1;
 
 private slots:
 
@@ -73,6 +85,16 @@ private slots:
     void on_actionSave_settings_triggered();
 
     void on_actionLoad_settings_triggered();
+
+    void on_actionbmp_triggered();
+
+    void on_actionjpeg_triggered();
+
+    void on_actionGif_2_triggered();
+
+//    void recording();
+
+//    void saveGIF();
 
 private:
     Ui::MainWindow *ui;

@@ -13,6 +13,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     this->setFixedSize( this->size() );  //  не изменяемый размер окна
     ui->line_width->setRange(1, 40);
+    time = 0.0;
+    record_time = new QTimer(this);
+//    is_recording = false;
+//    connect(record_time, &QTimer::timeout, this, &MainWindow::recording);
 }
 
 MainWindow::~MainWindow()
@@ -21,8 +25,6 @@ MainWindow::~MainWindow()
     ui->sceneWidget->free_mem();
 }
 
-
-QString qpath_file;
 void MainWindow::on_pushButton_clicked()
 {
     qpath_file = QFileDialog::getOpenFileName(0, "Open File .obj", "/Users/", "*.obj");
@@ -144,7 +146,6 @@ void MainWindow::on_doubleSpinBox_4_valueChanged(double arg1)
 }
 
 
-double tmp = 1;
 void MainWindow::on_setting_scale_valueChanged(double arg1)
 {
     tmp = arg1;
@@ -189,4 +190,107 @@ void MainWindow::on_actionLoad_settings_triggered()
     ui->sceneWidget->loadSetting();
     ui->sceneWidget->update();
 }
+
+
+void MainWindow::on_actionjpeg_triggered()
+{
+    QString path = (QDir::homePath() + "/save_config/");
+    QDir dir(path);
+    if (!dir.exists())
+        dir.mkpath(path);
+    ui->sceneWidget->grab().save(path + "you_are_Zanuda.jpeg");
+
+}
+
+
+void MainWindow::on_actionbmp_triggered()
+{
+    QString path = (QDir::homePath() + "/save_config/");
+    QDir dir(path);
+    if (!dir.exists())
+        dir.mkpath(path);
+    ui->sceneWidget->grab().save(path + "you_are_Zanuda.bmp");
+}
+
+
+
+void MainWindow::on_actionGif_2_triggered()
+{
+    {
+        QGifImage gif(QSize(300, 300));
+
+        QVector<QRgb> ctable;
+        ctable << qRgb(255, 255, 255)
+               << qRgb(0, 0, 0)
+               << qRgb(255, 0, 0)
+               << qRgb(0, 255, 0)
+               << qRgb(0, 0, 255)
+               << qRgb(255, 255, 0)
+               << qRgb(0, 255, 255)
+               << qRgb(255, 0, 255);
+
+        gif.setGlobalColorTable(ctable, Qt::black);
+        gif.setDefaultTransparentColor(Qt::black);
+        gif.setDefaultDelay(100);
+
+        QPixmap pixmap(ui->sceneWidget->size());
+        ui->sceneWidget->render(&pixmap, QPoint(), QRegion());
+
+        gif.addFrame(pixmap.toImage());
+
+        for (int i=0; i<150; ++i) {
+            QPixmap pixmap(ui->sceneWidget->size());
+
+            ui->sceneWidget->render(&pixmap, QPoint(), QRegion());
+            gif.insertFrame(i, pixmap.toImage());
+            QThread::msleep(10);
+        }
+
+        QString way_file_gif = QFileDialog::getSaveFileName(this, "Загрузить файл", "/Users/",
+                                                                "All Files (*.*);; JPEG Image (*.jpeg);; bmp Image (*.bmp)");
+        gif.save(way_file_gif);
+    //    on_pushButton_toStartPoint_clicked();
+    }
+//    if (!is_recording) {
+//      is_recording = true;
+//        record_time->start(100);
+//    }
+}
+
+
+//void MainWindow::recording()
+//{
+//    if (is_recording && time <= 5.0) {
+//      GIF.push_back(ui->sceneWidget->grab().toImage());
+//      time += 0.1;
+//    } else {
+//      saveGIF();
+//      record_time->stop();
+//    }
+//}
+
+//void MainWindow::saveGIF()
+
+
+
+//{
+//    QString str = QFileDialog::getSaveFileName(
+//          this, tr("Save GIF"), QDir::homePath(), tr("GIF (*.gif)"));
+//      if (str != "") {
+//        QGifImage gif(QSize(40, 40));
+
+//        gif.setDefaultTransparentColor(Qt::black);
+//        gif.setDefaultDelay(100);
+
+//        for (QVector<QImage>::Iterator frame = GIF.begin(); frame != GIF.end();
+//             frame++) {
+//          gif.addFrame(*frame);
+//        }
+
+//        gif.save(str);
+//        GIF.clear();
+//      }
+//      time = 0.0;
+//      is_recording = false;
+//}
 

@@ -197,7 +197,7 @@ void Scene::saveSetting()  {
     settings->setValue("v_s", v_s);
     settings->setValue("v_w", v_w);
     settings->setValue("l_c", l_c);
-    settings->value("proj", proj).toInt();
+    settings->setValue("proj", proj);
     settings->setValue("back_red",back_red);
     settings->setValue("back_green",back_green);
     settings->setValue("back_blue",back_blue);
