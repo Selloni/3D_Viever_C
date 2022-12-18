@@ -18,16 +18,16 @@ uninstall: clean
 	@rm -rf $(HOME)/Desktop/3DViewer
 
 dvi:
-	open 'https://isqua.ru/blog/' // вставь ссылку на редми
+	open 'https://github.com/Selloni/3D_Viever_C'
 
 dist:
-	rm -rf Archive_3DViewer_v1.0/
-	mkdir Archive_3DViewer_v1.0/
-	mkdir Archive_3DViewer_v1.0/src
-	cp Makefile *.c *.h *.pro *.cpp *.ui *.user Archive_3DViewer_v1.0/src/
-	tar cvzf Archive_3DViewer_v1.0.tgz Archive_3DViewer_v1.0/
-	mv Archive_3DViewer_v1.0.tgz $(HOME)/Desktop/
-	rm -rf Archive_3DViewer_v1.0/
+	rm -rf Archive_3DViewer/
+	mkdir Archive_3DViewer/
+	mkdir Archive_3DViewer/src
+	cp Makefile *.c *.h *.pro *.cpp *.ui *.user Archive_3DViewer/src/
+	tar cvzf Archive_3DViewer.tgz Archive_3DViewer/
+	mv Archive_3DViewer.tgz $(HOME)/Desktop/
+	rm -rf Archive_3DViewer/
 
 tests:
 	checkmk clean_mode=1 GUI/test.check > GUI/test.c
@@ -46,11 +46,21 @@ gcov_report:
 	open ./report/index.html
 	rm -rf *.gcda *.gcno *.info
 
-3DViewer_v1.o:
+3DViewer.o:
 	$(CC+FLAGS) -c *.c
 
-linters:
-	python3 ../materials/linters/cpplint.py --extensions=c *.c  // переделать под новый стиль, пока не знаю как
+# cpp:
+# 	cp ../materials/linters/CPPLINT.cfg ./
+# 	python3 ../materials/linters/cpplint.py s21_*.h s21_*.c
+# 	cppcheck *.c
+
+
+clang:
+#	mv ../materials/linters/.clang-format .clang-format
+#	# clang-format -i s21_*.c s21_*.h
+	clang-format -n s21_*.c s21_*.h
+#	# mv .clang-format ../materials/linters/.clang-format
+
 
 clean:
 	rm -rf *.o *.a

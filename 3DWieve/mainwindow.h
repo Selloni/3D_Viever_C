@@ -7,6 +7,7 @@
 #include <QSettings>
 #include <QMessageBox>
 #include <QTimer>
+#include <QUrl>
 
 
 #include "../GIFCreation/gifImage/qgifimage.h"
@@ -95,6 +96,8 @@ private slots:
     void recording();
 
     void saveGIF();
+
+    void on_action_triggered();
 
 private:
     Ui::MainWindow *ui;

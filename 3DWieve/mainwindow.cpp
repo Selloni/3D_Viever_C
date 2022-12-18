@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <iostream>
+//#include <iostream>
 #include <QMessageBox>
 
 /////// вопрос с цветом и с выводом фигруы и как что то сделать перед тем как запуститсья прогармма
@@ -8,7 +8,6 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-//    setlocale(LC_ALL, "en_US.UTF-8");
     setWindowTitle("3DViewer");
     ui->setupUi(this);
     this->setFixedSize( this->size() );  //  не изменяемый размер окна
@@ -216,41 +215,6 @@ void MainWindow::on_actionbmp_triggered()
 
 void MainWindow::on_actionGif_2_triggered()
 {
-//    {
-//        QGifImage gif(QSize(300, 300));
-
-//        QVector<QRgb> ctable;
-//        ctable << qRgb(255, 255, 255)
-//               << qRgb(0, 0, 0)
-//               << qRgb(255, 0, 0)
-//               << qRgb(0, 255, 0)
-//               << qRgb(0, 0, 255)
-//               << qRgb(255, 255, 0)
-//               << qRgb(0, 255, 255)
-//               << qRgb(255, 0, 255);
-
-//        gif.setGlobalColorTable(ctable, Qt::black);
-//        gif.setDefaultTransparentColor(Qt::black);
-//        gif.setDefaultDelay(100);
-
-//        QPixmap pixmap(ui->sceneWidget->size());
-//        ui->sceneWidget->render(&pixmap, QPoint(), QRegion());
-
-//        gif.addFrame(pixmap.toImage());
-
-//        for (int i=0; i<150; ++i) {
-//            QPixmap pixmap(ui->sceneWidget->size());
-
-//            ui->sceneWidget->render(&pixmap, QPoint(), QRegion());
-//            gif.insertFrame(i, pixmap.toImage());
-//            QThread::msleep(10);
-//        }
-
-//        QString way_file_gif = QFileDialog::getSaveFileName(this, "Загрузить файл", "/Users/",
-//                                                                "All Files (*.*);; JPEG Image (*.jpeg);; bmp Image (*.bmp)");
-//        gif.save(way_file_gif);
-//    //    on_pushButton_toStartPoint_clicked();
-//    }
     if (!is_recording) {
       is_recording = true;
         record_time->start(100);
@@ -289,5 +253,11 @@ void MainWindow::saveGIF()
       }
       time = 0.0;
       is_recording = false;
+}
+
+void MainWindow::on_action_triggered()
+{
+    QString link="https://github.com/Selloni/3D_Viever_C#readme";
+    QDesktopServices::openUrl(QUrl(link));
 }
 

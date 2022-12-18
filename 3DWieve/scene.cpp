@@ -84,7 +84,7 @@ void Scene::paintGL() {
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
-        glTranslatef(0, 0, -3);
+//        glTranslatef(0, 0, -3);
         glRotatef(xRot, 1, 0, 0);// для движения мышью
         glRotatef(yRot, 0, 1, 0);
         glRotatef(zRot, 0, 0, 1);

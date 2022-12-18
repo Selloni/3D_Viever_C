@@ -565,6 +565,7 @@
     <addaction name="menuSave_img"/>
     <addaction name="actionGif_2"/>
     <addaction name="actioninfo"/>
+    <addaction name="action"/>
    </widget>
    <addaction name="menuTolls"/>
   </widget>
@@ -606,6 +607,11 @@
   <action name="actionGif_2">
    <property name="text">
     <string>Gif</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>❤</string>
    </property>
   </action>
  </widget>

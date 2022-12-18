@@ -6,7 +6,7 @@ A simple program for viewing wireframe models from .obj files
 ## Dependencies
 1. Qt6.2 + QtOpenGLWidgets + OpenGL
 2. gcc + g++
-3. Make and CMake
+3. Make
 
 
 ## Install
@@ -36,4 +36,4 @@ Go to src folder and type `make uninstall` or just delete app icon
 
 ![3DViewer](misc/2.jpg)
 
-## Created and tested on MacOS by v3ssel and crackedg in 2022
+## Created and tested on MacOS by grandpat with the support of other peers in 2022
