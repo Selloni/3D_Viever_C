@@ -1,78 +1,87 @@
-APP = build/3DViewer.app
 CC+FLAGS = gcc -std=c11 -Wall -Wextra -Werror
 GCOVFLAGS = -L. --coverage
-CHECK_FLAGS = -lcheck
+CHECK_FLAGS = -lcheck -lm -lpthread
 
-all: install tests clean
 
-build:
+ifeq (${OS}, Linux)
+	CHECK_FLAGS += -lsubunit -lrt
+endif
+
+all: install tests
+
+install: 
+	rm -rf build
 	mkdir build
-	cd ./build/ && qmake ../3DWieve && make
+	cd build/ && qmake ../3DWieve && make
+	open build/3DWieve.app
 
-install: uninstall build
-	@mkdir $(HOME)/Desktop/3DViewer
-	@cp -rf $(APP) $(HOME)/Desktop/3DViewer
-	make clean
+open:
+	open build/3DWieve.app
 
 uninstall: clean
-	@rm -rf $(HOME)/Desktop/3DViewer
+	rm -rf build
 
 dvi:
-	open 'https://github.com/Selloni/3D_Viever_C'
+	open 'https://github.com/Selloni/3D_Viever_C#readme'
 
 dist:
-	rm -rf Archive_3DViewer/
-	mkdir Archive_3DViewer/
-	mkdir Archive_3DViewer/src
-	cp Makefile *.c *.h *.pro *.cpp *.ui *.user Archive_3DViewer/src/
-	tar cvzf Archive_3DViewer.tgz Archive_3DViewer/
-	mv Archive_3DViewer.tgz $(HOME)/Desktop/
-	rm -rf Archive_3DViewer/
+	rm -rf Archive_3DViewer
+	mkdir Archive_3DViewer
+	tar -cf Archive_3DViewer/3DViewer.tar build
 
 tests:
-	checkmk clean_mode=1 GUI/test.check > GUI/test.c
-	gcc -Wall -Werror -Wextra 3DWieve/s21_viewer.c 3DWieve/test.c -lcheck
-	rm 3DWieve/test.c
-	./a.out
+	$(CC+FLAGS) parsing/s21_viewer.c parsing/s21_test.c -lcheck -o test.out
+	./test.out
 
 gcov_report:
 	rm -f *.g*
-	checkmk clean_mode=1 3DWieve/test.check > 3DWieve/test.c
-	gcc -Wall -Werror -Wextra 3DWieve/viewer.c 3DWieve/test.c -lcheck --coverage
-	./a.out
-	lcov -t a.out -o rep.info -c -d .
-	genhtml -o report rep.info
-	rm 3DWieve/test.c
+	$(CC+FLAGS) --coverage $(CHECK_FLAGS) parsing/s21_*.c -o gcov_test
+	chmod +x *
+	./gcov_test
+	lcov -t "gcov_test" -o gcov_test.info --no-external -c -d .
+	genhtml -o report/ gcov_test.info
 	open ./report/index.html
-	rm -rf *.gcda *.gcno *.info
+	rm -rf ./*.gcno ./*.gcda ./gcov*
 
 3DViewer.o:
 	$(CC+FLAGS) -c *.c
 
-# cpp:
-# 	cp ../materials/linters/CPPLINT.cfg ./
-# 	python3 ../materials/linters/cpplint.py s21_*.h s21_*.c
-# 	cppcheck *.c
 
-
-clang:
-#	mv ../materials/linters/.clang-format .clang-format
-#	# clang-format -i s21_*.c s21_*.h
-	clang-format -n s21_*.c s21_*.h
-#	# mv .clang-format ../materials/linters/.clang-format
-
+check:
+	clang-format -style=Google -dump-config > .clang-format
+	clang-format -i parsing/*.c 				\
+					parsing/*.h 				\
+					3DWieve/*.cpp 			\
+					3DWieve/*.h 			\
+					GIFCreation/gifImage/*.cpp  \
+					GIFCreation/gifImage/*.h 	\
+					GIFCreation/gifLib/*.c 		\
+					GIFCreation/gifLib/*.h
+	clang-format -n parsing/*.c 				\
+					parsing/*.h 				\
+					3DWieve/*.cpp 			\
+					3DWieve/*.h 			\
+					GIFCreation/gifImage/*.cpp  \
+					GIFCreation/gifImage/*.h 	\
+					GIFCreation/gifLib/*.c 		\
+					GIFCreation/gifLib/*.h
+	rm .clang-format
 
 clean:
 	rm -rf *.o *.a
 	rm -rf *.gcda *.gcno *.info
 	rm -rf s21_test report
-	rm -rf s21_calc s21_test // зачем??
-	rm -rf ./build*
 	rm -rf a.out
+	rm -rf test.out
+	rm -rf Archive_3DViewer
 
-leaks:
-	CK_FORK=no leaks --atExit -- ./a.out
+
+# install lcov:
+# 	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+# 	brew install lcov
 
 rebuild: clean uninstall all
 
 reinstall: clean uninstall install
+
+#Ты молодец, и еще ты мне нравишься)
