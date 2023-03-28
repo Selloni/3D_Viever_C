@@ -126,7 +126,7 @@ void MainWindow::on_actioninfo_triggered() {
   QString a = QString::number(ui->sceneWidget->qcount_vert);
   QString b = QString::number(ui->sceneWidget->qcount_facets);
   QString info = "Name: " + qpath_file + '\n' + "Vertex: " + a + '\n' +
-                 "Facets: " + b + '\n' + "Authors: Alina and Yakov" + '\n' +
+                 "Facets: " + b + '\n' + "Authors: Yakov and other peers" + '\n' +
                  '\n' + "❤ и ты симпатяшка ❤";
 
   QMessageBox::information(this, tr("Info"), info);

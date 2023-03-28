@@ -40,7 +40,6 @@ int s21_count_v_f(
       } else if (ch[0] == 'v' && ch[1] == ' ') {  // vertex
         obj->count_vert++;
       } else if (ch[0] == 'f' && ch[1] == ' ') {  // facets
-
         obj->count_facets += s21_space_for_Fsupp(ch);
       }
     }
@@ -71,17 +70,19 @@ void s21_read(char *file_name, data_t *obj) {
   unint index_v = 0;
   unint index_f = 0;
   char *ch = malloc(sizeof(char) * 255);
-  obj->vertexes = malloc((obj->count_vert * 3 * sizeof(double) + 1));
-  obj->facets = malloc((obj->count_facets * 2 * sizeof(unint) + 1));
-  if ((text = fopen(file_name, "r")) != NULL) {
-    while ((fgets(ch, 255, text)) != NULL) {  // считываем построчно
-      if (ch[0] == 'v' && ch[1] == ' ') {
-        index_v += 2;
-        sscanf(ch, "v %lf %lf %lf", &obj->vertexes[index_v - 2],
-               &obj->vertexes[index_v - 1], &obj->vertexes[index_v]);
-        index_v++;
-      } else if (ch[0] == 'f' && ch[1] == ' ') {
-        index_f = s21_Fconnect(obj, ch, index_f);
+  if (obj->vertexes = malloc((obj->count_vert * 3 * sizeof(double) + 1))) {
+    if (obj->facets = malloc((obj->count_facets * 2 * sizeof(unint) + 1))) {
+      if ((text = fopen(file_name, "r")) != NULL) {
+        while ((fgets(ch, 255, text)) != NULL) {  // считываем построчно
+          if (ch[0] == 'v' && ch[1] == ' ') {
+            index_v += 2;
+            sscanf(ch, "v %lf %lf %lf", &obj->vertexes[index_v - 2],
+                   &obj->vertexes[index_v - 1], &obj->vertexes[index_v]);
+            index_v++;
+          } else if (ch[0] == 'f' && ch[1] == ' ') {
+            index_f = s21_Fconnect(obj, ch, index_f);
+          }
+        }
       }
     }
   }
