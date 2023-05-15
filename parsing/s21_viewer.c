@@ -1,37 +1,11 @@
 #include "s21_viewer.h"
 
-// int main() {
-//    data_t obj = {0};
-//    unint index_f = 0;
-//    unint index_v = 0;
-
-//    char *str = "/Users/grandpat/3D_Viever_C/obj/car.obj";
-//     char *str2 = "/Users/grandpat/3D_Viever_C/obj/cub.obj";
-//     s21_count_v_f(str, &obj);
-
-//     s21_read(str, &obj);
-//      printf("c_f %u, c_v %u\n", (obj.count_facets *2) , obj.count_vert);
-//     for (int i = 0; i < (obj.count_facets*2); i++) {
-//        printf("%u|",obj.facets[i]);
-//        // printf("\n");
-//    }
-//    printf("\n");
-// //    for (int i = 0; i < (obj.count_vert *3); i++) {
-// //        printf("%lf| ",obj.vertexes[i]);
-// //     //    printf("%u",obj.facets[i]);
-// //     //    printf("\n");
-// //    }
-//    free(obj.vertexes);
-//    free(obj.facets);
-//    return 0;
-// }
-
 int s21_count_v_f(
     char *file_name,
     data_t *obj) {  // открыли и посчитали, сколько нам потребуется памяти
   FILE *text;
   char ch[255] = {0};
-  int y = strlen(ch);  //длина строки
+  int y = strlen(ch);  // длина строки
   int result = 0;
   if ((text = fopen(file_name, "r")) != NULL) {
     while ((fgets(ch, 255, text)) != NULL) {  // считываем построчно
@@ -70,8 +44,8 @@ void s21_read(char *file_name, data_t *obj) {
   unint index_v = 0;
   unint index_f = 0;
   char *ch = malloc(sizeof(char) * 255);
-  if (obj->vertexes = malloc((obj->count_vert * 3 * sizeof(double) + 1))) {
-    if (obj->facets = malloc((obj->count_facets * 2 * sizeof(unint) + 1))) {
+  if ((obj->vertexes = malloc((obj->count_vert * 3 * sizeof(double) + 1)))) {
+    if ((obj->facets = malloc((obj->count_facets * 2 * sizeof(unint) + 1)))) {
       if ((text = fopen(file_name, "r")) != NULL) {
         while ((fgets(ch, 255, text)) != NULL) {  // считываем построчно
           if (ch[0] == 'v' && ch[1] == ' ') {
